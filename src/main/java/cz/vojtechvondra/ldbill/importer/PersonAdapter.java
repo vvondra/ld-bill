@@ -9,6 +9,8 @@ import com.hp.hpl.jena.vocabulary.VCARD;
 import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Person;
 
+import java.text.SimpleDateFormat;
+
 
 public class PersonAdapter extends Adapter<Person> {
 
@@ -35,6 +37,8 @@ public class PersonAdapter extends Adapter<Person> {
         if (entity.getTitleAfterName().length() > 0) {
             person.addProperty(VCARD.Suffix, entity.getTitleAfterName());
         }
-        person.addProperty(VCARD.BDAY, entity.getDateOfBirth().toString());
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        person.addProperty(VCARD.BDAY, format.format(entity.getDateOfBirth()));
     }
 }
