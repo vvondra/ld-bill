@@ -1,5 +1,7 @@
 package cz.vojtechvondra.ldbill.entity;
 
+import java.util.ArrayList;
+
 public class Deputy extends Person {
 
     private String personId;
@@ -12,6 +14,8 @@ public class Deputy extends Person {
 
     private String[] emails;
 
+    private String partyId;
+
     /**
      * Creates an instance from a PSP .unl export file line
      * @param parts from the poslanci.unl file
@@ -22,10 +26,20 @@ public class Deputy extends Person {
         }
 
         personId = parts[1];
+        partyId = parts[3];
         website = parts[5];
         address = parts[6];
         city = parts[7];
-        emails = parts[9].split(",");
+        setEmail(parts[9]);
+    }
+
+    public void setEmail(String value) {
+        String[] emails = value.split(",");
+        ArrayList<String> toSet = new ArrayList<>();
+        for (String email : emails) {
+            toSet.add(email.trim().replace("\\", ""));
+        }
+        this.emails = toSet.toArray(new String[toSet.size()]);
     }
 
     public String getWebsite() {
@@ -47,4 +61,5 @@ public class Deputy extends Person {
         return personId;
     }
 
+    public String getPartyId() { return partyId; }
 }

@@ -8,6 +8,10 @@ public class Organ implements Entity {
 
     private String fullTitle;
 
+    public Organ(String organId) {
+        this.organId = organId;
+    }
+
     /**
      * Creates an instance from a PSP .unl export file line
      * @param parts row from the organy export file

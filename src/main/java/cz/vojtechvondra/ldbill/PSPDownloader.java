@@ -45,6 +45,7 @@ public class PSPDownloader {
         setsToFilesMapping.put("organy", ExportFiles.DEPUTIES);
         setsToFilesMapping.put("osoby", ExportFiles.DEPUTIES);
         setsToFilesMapping.put("poslanec", ExportFiles.DEPUTIES);
+        setsToFilesMapping.put("zarazeni", ExportFiles.DEPUTIES);
     }
 
     /**

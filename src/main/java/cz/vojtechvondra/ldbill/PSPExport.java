@@ -41,7 +41,17 @@ public class PSPExport {
                 prepare();
             }
             String line = in.readLine();
-            return (line == null) ? null : line.split("\\|");
+            if (line != null) {
+                String[] parts = line.split("\\|");
+                for (int i = 0; i < parts.length; i++) {
+                    parts[i] = parts[i].trim();
+                    if (parts[i].length() > 0 && parts[i].charAt(0) == '\\') {
+                        parts[i] = parts[i].substring(1);
+                    }
+                }
+                return parts;
+            }
+            return null;
         } catch (IOException e) {
             return null;
         }

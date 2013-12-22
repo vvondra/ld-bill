@@ -1,13 +1,14 @@
-package cz.vojtechvondra.ldbill;
+package cz.vojtechvondra.ldbill.importer;
 
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Entity;
 
 import java.io.IOException;
 
-abstract class Adapter<E extends Entity> {
+abstract class Adapter<E extends Entity> implements Step {
 
     protected PSPExport export;
 
@@ -55,7 +56,6 @@ abstract class Adapter<E extends Entity> {
      */
     public Model getModel() {
         String[] data;
-        Model model = ModelFactory.createDefaultModel();
 
         while ((data = export.getLine()) != null) {
             E entity;
@@ -65,7 +65,7 @@ abstract class Adapter<E extends Entity> {
                 /* Not a valid entity in the export file, continue */
                 continue;
             }
-            addEntityToModel(model, entity);
+            addEntityToModel(currentModel, entity);
         }
 
         try {
@@ -74,6 +74,6 @@ abstract class Adapter<E extends Entity> {
             /* Log in the future probably */
         }
 
-        return model;
+        return currentModel;
     }
 }

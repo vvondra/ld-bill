@@ -1,17 +1,19 @@
-package cz.vojtechvondra.ldbill;
+package cz.vojtechvondra.ldbill.importer;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DC;
+import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.VCARD;
+import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Person;
 
 
 public class PersonAdapter extends Adapter<Person> {
 
-    public PersonAdapter(PSPExport export) {
-        super(export);
+    public PersonAdapter(PSPExport export, Model currentModel) {
+        super(export, currentModel);
     }
 
     @Override
@@ -22,6 +24,8 @@ public class PersonAdapter extends Adapter<Person> {
     @Override
     protected void addEntityToModel(Model model, Person entity) {
         Resource person = model.createResource(entity.getRdfUri());
+        person.addProperty(RDF.type, FOAF.Person);
+        person.addProperty(RDF.type, VCARD.NAME); // TODO check name
         person.addProperty(DC.title, entity.getFirstName() + " " + entity.getLastName());
         person.addProperty(FOAF.firstName, entity.getFirstName());
         person.addProperty(FOAF.family_name, entity.getLastName());

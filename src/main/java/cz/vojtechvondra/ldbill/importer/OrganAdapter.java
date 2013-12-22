@@ -1,4 +1,4 @@
-package cz.vojtechvondra.ldbill;
+package cz.vojtechvondra.ldbill.importer;
 
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -6,12 +6,13 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
+import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Organ;
 
 public class OrganAdapter extends Adapter<Organ> {
 
-    public OrganAdapter(PSPExport organExport) {
-        super(organExport);
+    public OrganAdapter(PSPExport organExport, Model currentModel) {
+        super(organExport, currentModel);
     }
 
     @Override

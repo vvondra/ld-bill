@@ -1,10 +1,11 @@
-package cz.vojtechvondra.ldbill;
+package cz.vojtechvondra.ldbill.importer;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
-import com.hp.hpl.jena.vocabulary.VCARD;
+import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Deputy;
+import cz.vojtechvondra.ldbill.entity.Organ;
 
 
 public class DeputyAdapter extends Adapter<Deputy> {
@@ -29,5 +30,8 @@ public class DeputyAdapter extends Adapter<Deputy> {
         for (String email : entity.getEmails()) {
             r.addProperty(FOAF.mbox, email);
         }
+
+        Organ party = new Organ(entity.getPartyId());
+        r.addProperty(FOAF.member, party.getRdfUri());
     }
 }
