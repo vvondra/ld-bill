@@ -3,10 +3,12 @@ package cz.vojtechvondra.ldbill;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import cz.vojtechvondra.ldbill.importer.*;
+import org.apache.log4j.BasicConfigurator;
 
 public class Launcher {
     public static void main(String [] args)
     {
+        BasicConfigurator.configure();
         Model dataset = ModelFactory.createDefaultModel();
         PSPDownloader dataDownloader = new PSPDownloader();
         OrganAdapter oa = new OrganAdapter(new PSPExport(dataDownloader, "organy"), dataset);

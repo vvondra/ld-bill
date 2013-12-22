@@ -1,6 +1,8 @@
 package cz.vojtechvondra.ldbill.entity;
 
 
+import org.apache.log4j.Logger;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +20,8 @@ public class Person implements Entity {
     protected String titleAfterName;
 
     protected Date dateOfBirth;
+
+    static Logger logger = Logger.getLogger(Person.class);
 
     public Person() {
     }
