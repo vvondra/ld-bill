@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Deputy extends Person {
 
-    private String personId;
-
     private String website;
 
     private String address;
@@ -55,10 +53,6 @@ public class Deputy extends Person {
 
     public String getAddress() {
         return address;
-    }
-
-    public String getPersonId() {
-        return personId;
     }
 
     public String getPartyId() { return partyId; }
