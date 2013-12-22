@@ -1,9 +1,6 @@
 package cz.vojtechvondra.ldbill.importer;
 
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.shared.PropertyNotFoundException;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.RDF;
@@ -27,11 +24,14 @@ public class DeputyFilter implements Step {
         ArrayList<Statement> toRemove = new ArrayList<>();
         while (stmtIterator.hasNext()) {
             Statement stmt = stmtIterator.nextStatement();
-            try {
-                Resource person = stmt.getResource();
-                person.getRequiredProperty(FOAF.member);
-            } catch (PropertyNotFoundException e) {
-                toRemove.add(stmt);
+            Resource person = stmt.getResource();
+            Property[] required = new Property[] { FOAF.member, FOAF.mbox };
+            for (Property property : required) {
+                try {
+                    person.getRequiredProperty(property);
+                } catch (PropertyNotFoundException e) {
+                    toRemove.add(stmt);
+                }
             }
         }
 
