@@ -27,7 +27,8 @@ public class Person implements Entity {
     }
 
     public Person(String[] data) {
-        if (data.length != 9) {
+        if (data.length < 9) {
+            logger.debug("Invalid person row, length " + data.length);
             throw new IllegalArgumentException("Invalid person row");
         }
 
@@ -67,7 +68,6 @@ public class Person implements Entity {
     public String getTitleAfterName() {
         return titleAfterName;
     }
-
 
     public Date getDateOfBirth() {
         return dateOfBirth;
