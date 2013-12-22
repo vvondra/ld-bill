@@ -35,7 +35,10 @@ public class Deputy extends Person {
         String[] emails = value.split(",");
         ArrayList<String> toSet = new ArrayList<>();
         for (String email : emails) {
-            toSet.add(email.trim().replace("\\", ""));
+            email = email.trim().replace("\\", "");
+            if (email.length() > 0) {
+                toSet.add(email);
+            }
         }
         this.emails = toSet.toArray(new String[toSet.size()]);
     }
