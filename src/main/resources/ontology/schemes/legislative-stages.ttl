@@ -1,0 +1,99 @@
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> . 
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix billstages:  <http://linked.opendata.cz/resource/legislation/bill-legislative-stages#> .
+
+####### Concept scheme of possible stages of passing a bill
+
+billstages:BillStage a owl:Class ;
+  rdfs:subClassOf skos:Concept .
+
+billstages: a skos:ConceptScheme ;
+  rdfs:label "Schéma konceptů pro možné stavy návrhu zákona v legislativním procesu"@cs ,
+    "Concept scheme for stages of the legislative process"@en ;
+  skos:hasTopConcept billstages:Introduced, billstages:GovernmentPosition,
+   billstages:FirstReading, billstages:CommitteeConsideration, billstages:SecondReading,
+   billstages:ThirdReading, billstages:Senate, billstages:VetoOverride, billstages:President,
+   billstages:Published
+  .
+
+billstages:Introduced a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "Předložen Poslanecké Sněmovně"@cs, "Introduced to the Parliament"@en ;
+  skos:topConceptOf billstages:
+  .
+
+billstages:GovernmentPosition a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "Čeká na stanovisko vlády"@cs, "Waiting for the government to take a position"@en ;
+  skos:topConceptOf billstages:
+  .
+
+billstages:FirstReading a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "První čtení"@cs, "First Reading"@en ;
+  skos:topConceptOf billstages:
+  .
+
+billstages:CommitteeConsideration a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "K projednání výborem"@cs, "Waiting for committee consideration"@en ;
+  skos:topConceptOf billstages:
+  .
+
+billstages:SecondReading a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "Druhé čtení"@cs, "Second Reading"@en ;
+  skos:topConceptOf billstages:
+  .
+
+billstages:ThirdReading a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "Třetí čtení"@cs, "Third Reading"@en ;
+  skos:topConceptOf billstages:
+  .
+
+billstages:Amendments a skos:Concept, billstages:BillStage ;
+    skos:inScheme billstages: ;
+    skos:prefLabel "Schvalování pozměňovacích návrhů"@cs, "Discussion and voting about bill amendments"@en ;
+    skos:topConceptOf billstages:
+    .
+
+billstages:Senate a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "Projednává Senát"@cs, "Bill is referred to the Senate"@en ;
+  skos:topConceptOf billstages:
+  .
+
+billstages:VetoOverride a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "Sněmovná projednává přehlasování veta"@cs, "The House of Representatives is attempting to override a veto"@en ;
+  skos:topConceptOf billstages: ;
+  skos:narrower billstages:SenateVetoOverride, billstages:PresidentialVetoOverride ;
+  .
+
+billstages:SenateVetoOverride a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "Sněmovná projednává přehlasování senátního veta"@cs, "The House of Representatives is attempting to override a senatorial veto"@en ;
+  skos:broader billstages:VetoOverride
+  .
+
+billstages:PresidentialVetoOverride a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "Sněmovná projednává přehlasování prezidentského veta"@cs, "The House of Representatives is attempting to override a presidential veto"@en ;
+  skos:broader billstages:VetoOverride
+  .
+
+billstages:President a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "Návrh zákona je postoupen prezidentovi k posouzení"@cs, "The bill is being reviewed by the President"@en ;
+  skos:topConceptOf billstages:
+  .
+
+billstages:Passed a skos:Concept, billstages:BillStage ;
+  skos:inScheme billstages: ;
+  skos:prefLabel "Návrh zákona je schválen a vydán ve Sbírce zákonů"@cs, "The bill has come into force and has been published in the Collection of Laws"@en ;
+  skos:topConceptOf billstages:
+  .
+

@@ -1,0 +1,47 @@
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> . 
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix sponsors:  <http://linked.opendata.cz/resource/legislation/bill-sponsors#> .
+
+####### Concept scheme of possible types of bill sponsors
+
+
+sponsors:Sponsor a owl:Class ;
+  rdfs:subClassOf skos:Concept .
+
+sponsors: a skos:ConceptScheme ;
+  rdfs:label "Schéma konceptů pro možné předkladatele návrhu zákona"@cs ,
+    "Concept scheme for possible types of bill sponsors"@en ;
+  skos:hasTopConcept sponsors:Representative, sponsors:RepresentativeGroup, sponsors:Senate, sponsors:Government, sponsors:RegionalAssembly
+  .
+
+sponsors:Representative a skos:Concept, sponsors:Sponsor ;
+  skos:inScheme sponsors: ;
+  skos:prefLabel "Poslanec"@cs, "Member of Parliament"@en ;
+  skos:topConceptOf sponsors:
+  .
+
+sponsors:RepresentativeGroup a skos:Concept, sponsors:Sponsor ;
+  skos:inScheme sponsors: ;
+  skos:prefLabel "Skupina poslanců"@cs, "Group of members of Parliament"@en ;
+  skos:topConceptOf sponsors:
+  .
+
+sponsors:Senate a skos:Concept, sponsors:Sponsor ;
+  skos:inScheme sponsors: ;
+  skos:prefLabel "Senát"@cs , "Senate"@en ;
+  skos:topConceptOf sponsors:
+  .
+
+sponsors:Government a skos:Concept, sponsors:Sponsor ;
+  skos:inScheme sponsors: ;
+  skos:prefLabel "Vláda"@cs, "Government"@en ;
+  skos:topConceptOf sponsors:
+  .
+
+sponsors:RegionalAssembly a skos:Concept, sponsors:Sponsor ;
+  skos:inScheme sponsors: ;
+  skos:prefLabel "Zastupitelstvo kraje"@cs, "Regional Assembly"@en ;
+  skos:topConceptOf sponsors:
+  .

@@ -1,0 +1,34 @@
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> . 
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix decisions:  <http://linked.opendata.cz/resource/legislation/vote-decisions#> .
+
+####### Concept scheme of possible types of vote decisions
+
+decisions:Decision a owl:Class ;
+  rdfs:subClassOf skos:Concept .
+
+decisions: a skos:ConceptScheme ;
+  rdfs:label "Schéma konceptů pro možné výsledky hlasování při rozpravách v parlamentu"@cs ,
+    "Concept scheme for possible voting decisions in the Parliament"@en ;
+  skos:hasTopConcept decisions:Recommends, decisions:DoesNotRecommend
+  .
+
+decisions:Accepts a skos:Concept, decisions:Decision ;
+  skos:inScheme decisions: ;
+  skos:prefLabel "Schvaluje"@cs, "Accepts"@en ;
+  skos:topConceptOf decisions:
+  .
+
+decisions:Refuses a skos:Concept, decisions:Decision ;
+  skos:inScheme decisions: ;
+  skos:prefLabel "Zamítá či neschvaluje"@cs, "Refuses the proposal"@en ;
+  skos:topConceptOf decisions:
+  .
+
+decisions:PassesToCommitte a skos:Concept, decisions:Decision ;
+  skos:inScheme decisions: ;
+  skos:prefLabel "Postupuje k posouzení výborům"@cs, "Passes the bill for committee consideration"@en ;
+  skos:topConceptOf decisions:
+  .

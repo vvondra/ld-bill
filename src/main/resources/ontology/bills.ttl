@@ -1,0 +1,215 @@
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix eu:       <http://eurovoc.europa.eu/> .
+@prefix foaf:     <http://xmlns.com/foaf/0.1/> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix s:        <http://schema.org/> .
+@prefix skos:     <http://www.w3.org/2004/02/skos/core#> . 
+@prefix vann:     <http://purl.org/vocab/vann/> .
+@prefix vcard:    <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix frbr:     <http://purl.org/vocab/frbr/core#> .
+
+@prefix lex:        <http://purl.org/lex#> .
+
+# --- Own namespaces ------------------------------------------
+
+@prefix lb:          <http://linked.opendata.cz/resource/legislation/bill#> .
+@prefix sponsors:  <http://linked.opendata.cz/resource/legislation/bill-sponsors#> .
+@prefix billstages:  <http://linked.opendata.cz/resource/legislation/bill-legislative-stages#> .
+
+# --- Ontology metadata ---------------------------------------
+
+lb: a owl:Ontology ;
+  dcterms:title "Proposed bills ontology"@en,
+    "Ontologie pro návrhy zákonů"@cs ;
+  dcterms:description "Ontologie pro návrhy zákonu zachycující legislativní proces."@cs ;
+  dcterms:description "Ontology for bills under consideration of a legislature."@en ;
+  dcterms:modified "2012-12-02"^^xsd:date ;
+  vann:preferredNamespaceUri "http://linked.opendata.cz/resource/legislation/bill#" ;
+  vann:preferredNamespacePrefix "lb" ;
+  dcterms:creator <http://www.vojtechvondra.cz> ;
+  dcterms:rights <http://creativecommons.org/licenses/by/3.0/cz/> .
+
+# --- Ontology authors  ---------------------------------------
+
+<http://www.vojtechvondra.cz> a foaf:Person ;
+  foaf:name "Vojtech Vondra" ;
+  foaf:mbox <mailto:vojtavondra@gmail.com> .
+   
+
+####### 
+####### Classes
+#######
+
+lb:Bill a owl:Class ;
+  rdfs:label "Návrh zákona"@cs, "Bill"@en ;
+  rdfs:comment "Instance této třídy je abstraktní informační entitou o návru zákona. Obsahuje všechny úkony související s legislativním procesem, tj. výsledky hlasování v různých čteních, stav schvalování či pozměňovací návrhy. Obsahuje informace o měněných zákonech a v případě schválení i informaci o zákoně, jako který byl vydán."@cs ;
+  rdfs:comment "An instance of this class is an abstract information entity about a bill under consideration of a legislature. It contains information about the legislative procedure, e.g. readings, commitee reports or amendments. Changed laws are referenced and in case the bill passes, information about the published law as well."@en ;
+  rdfs:isDefinedBy lb: ;
+  rdfs:subClassOf frbr:Work
+  .
+
+lb:VoteInParliament a owl:Class ;
+  rdfs:label "Parlamentní hlasování"@cs, "A vote held in Parliament"@en ;
+  rdfs:comment "Instance třídy shrnuje výsledek hlasování proběhlé v Parlamentu. Zachycuje jednotlivé hlasy a výsledek."@cs ;
+  rdfs:comment "An instance of this class summarizes a vote held in Parliament. It holds information about individual votes and the final result."@en ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:PoliticalParty a owl:Class ;
+  rdfs:label "Politická strana či hnutí"@cs, "A political party or movement"@en ;
+  rdfs:comment "Reprezentuje skupinu registrovanou jako politickou stranu či hnutí."@cs ;
+  rdfs:comment "Represents a group registered or recognized as a political party or movement."@en ;
+  rdfs:subClassOf foaf:Group
+  .
+
+lb:Amendment a owl:Class ;
+  rdfs:label "Pozměňovací návrh"@cs, "Bill Amendment"@en ;
+  rdfs:comment "Reprezentuje pozměňovací návrh předložený v průběhu schvalování zákona"@cs ;
+  rdfs:comment "Represents an amendment to the bill create during the legislative process."@en .
+
+########
+######## Properties
+########
+
+## lb:VoteInParliament properties
+
+lb:votedFor a owl:ObjectProperty ;
+  rdfs:label "Osoba hlasovala pro schválení hlasování"@cs, "A person voted for the vote."@en ;
+  rdfs:domain foaf:Person ;
+  rdfs:range lb:VoteInParliament ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:hasSupporter a owl:ObjectProperty ;
+  owl:inverseOf lb:votedFor
+  .
+
+lb:votedAgainst a owl:ObjectProperty ;
+  rdfs:label "Osoba, která hlasovala proti schválení hlasování"@cs, "A person who voted against the vote."@en ;
+  rdfs:domain foaf:Person ;
+  rdfs:range lb:VoteInParliament ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:hasOpponent a owl:ObjectProperty ;
+  owl:inverseOf lb:votedAgainst
+  .
+
+lb:abstained a owl:ObjectProperty ;
+  rdfs:label "Osoba, která se zdržela hlasování"@cs, "A person who abstained from voting."@en ;
+  rdfs:domain foaf:Person ;
+  rdfs:range lb:VoteInParliament ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:hasAbstainee a owl:ObjectProperty ;
+  owl:inverseOf lb:abstained
+  .
+
+lb:absentAt a owl:ObjectProperty ;
+  rdfs:label "Osoba, která nebyla přítomna hlasování"@cs, "A person who was not present at the vote."@en ;
+  rdfs:domain foaf:Person ;
+  rdfs:range lb:VoteInParliament ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:hasAbsentee a owl:ObjectProperty ;
+  owl:inverseOf lb:absentAt
+  .
+## lb:Bill properties
+
+
+lb:billSponsor a owl:FunctionalProperty ;
+  rdfs:label "Předkladatel zákona"@cs, "Bill sponsor"@en ;
+  rdfs:comment "Jeden z možných předkladatelů návrhu zákona. Kardinalita 1"@cs ;
+  rdfs:comment "One of the possible bill sponsor types. Cardinality 1"@en ;
+  rdfs:domain lb:Bill ;
+  rdfs:range sponsors:Sponsor ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:shortName a owl:FunctionalProperty ;
+  rdfs:label "Krátký název návrhu zákona"@cs, "Short name of the bill"@en ;
+  rdfs:domain lb:Bill ;
+  rdfs:range xsd:string ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:fullName a owl:FunctionalProperty ;
+  rdfs:label "Celý název návrhu zákona"@cs, "Full name of the bill"@en ;
+  rdfs:domain lb:Bill ;
+  rdfs:range xsd:string ;
+  rdfs:isDefinedBy lb:
+  .
+
+
+lb:publishedAs a owl:FunctionalProperty ;
+  rdfs:label "Odkaz na vyhlášený zákon ve Sbírce zákonů"@cs, "A reference to the resulting Act created by passing this Bill"@en ;
+  rdfs:domain lb:Bill ;
+  rdfs:range lex:Act ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:eurovocDescriptor a owl:ObjectProperty ;
+  rdfs:label "Deskriptory EUROVOC"@cs, "EUROVOC descriptors"@en ;
+  rdfs:comment "Kardinalita 0..*"@cs ;
+  rdfs:comment "Cardinality 0..*"@en ;
+  rdfs:domain lb:Bill ;
+  rdfs:range eu:ThesaurusTerm ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:legislativeProcessStage a owl:FunctionalProperty ;
+  rdfs:label "Stav schvalování zákona"@cs, "Legislative process stage"@en ;
+  rdfs:comment "Současný stav schvalování zákona, lze použít jen jednu možnost. Kardinalita 0..1"@cs ;
+  rdfs:comment "Current stage of the legislative procedure. Only a predefined value can be used. Cardinality 0..1"@en ;
+  rdfs:domain frbr:Expression ;
+  rdfs:range billstages:BillStage 
+  .
+
+lb:amendedBy a owl:FunctionalProperty ;
+  rdfs:label "Pozměňovací návrh měnící znění návrhu zákona"@cs, "An amendment to the bill changing it during the legislative process"@en ;
+  rdfs:domain lb:Bill ;
+  rdfs:range lb:Amendment ;
+  rdfs:isDefinedBy lb:
+  .
+
+## lb:BillExpression properties
+
+# TODO - do SKOSu
+lb:outcome a owl:ObjectProperty ;
+  rdfs:label "Výsledek přechodu návrhu zákona do další fáze legislativního procesu"@cs, "The outcome of the current legislative process stage"@en ;
+  rdfs:domain frbr:Expression ;
+  rdfs:range xsd:string ;
+  rdfs:isDefinedBy lb:
+  .
+
+
+lb:decidedBy a owl:FunctionalProperty ;
+  rdfs:label "Hlasování spojené s přechodem stavu v legislativním procesu"@cs, "A vote which is related to this legislative process stage"@en ;
+  rdfs:domain frbr:Expression ;
+  rdfs:range lb:VoteInParliament ;
+  rdfs:isDefinedBy lb:
+  .
+
+
+
+
+# lb:Amendment properties
+
+lb:proposedBy a owl:FunctionalProperty ;
+  rdfs:label "Navrhovatel pozměňovacího návrhu"@cs, "The person or institution which proposed the amendment to the bill"@en ;
+  rdfs:domain lb:Amendment ;
+  rdfs:isDefinedBy lb:
+  .
+
+dcterms:date a owl:FunctionalProperty ;
+  rdfs:label "Datum předložení pozměňovacího návrhu"@cs, "Date of proposal of the amendment"@en ;
+  rdfs:domain lb:Amendment ;
+  rdfs:range xsd:date ;
+  rdfs:isDefinedBy lb:
+  .
+
