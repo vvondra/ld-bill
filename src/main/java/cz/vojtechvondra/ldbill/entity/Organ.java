@@ -2,11 +2,11 @@ package cz.vojtechvondra.ldbill.entity;
 
 public class Organ implements Entity {
 
-    private String organId;
+    protected String organId;
 
-    private String shortCode;
+    protected String shortCode;
 
-    private String fullTitle;
+    protected String fullTitle;
 
     public Organ(String organId) {
         this.organId = organId;
@@ -41,6 +41,10 @@ public class Organ implements Entity {
 
     @Override
     public String getRdfUri() {
-        return "http://linked.opendata.cz/resource/psp.cz/group/" + getOrganId();
+        return getRdfPrefix() + getOrganId();
+    }
+
+    static public String getRdfPrefix() {
+        return "http://linked.opendata.cz/resource/psp.cz/group/";
     }
 }

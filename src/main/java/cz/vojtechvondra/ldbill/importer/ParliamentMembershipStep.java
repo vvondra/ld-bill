@@ -1,12 +1,19 @@
 package cz.vojtechvondra.ldbill.importer;
 
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.vocabulary.OWL;
 import cz.vojtechvondra.ldbill.PSPExport;
+import cz.vojtechvondra.ldbill.entity.Organ;
 
 import java.io.IOException;
 
 public class ParliamentMembershipStep implements Step {
 
+    /**
+     * Value marking active membership in group in PSP export
+     */
+    public static final String MEMBERSHIP_FLAG = "0";
     private final PSPExport export;
     private final Model currentModel;
 
@@ -24,7 +31,8 @@ public class ParliamentMembershipStep implements Step {
         String[] data;
 
         while ((data = export.getLine()) != null) {
-            if (data[1].equals("170") && data[2].equals("0")) {
+            Resource group = currentModel.createResource(Organ.getRdfPrefix() + data[1]);
+            if (group.hasProperty(OWL.sameAs, ParliamentAdapterStep.PARLIAMENT_AUTHORITY_RDF_URI) && data[2].equals(MEMBERSHIP_FLAG)){
 
             }
         }
