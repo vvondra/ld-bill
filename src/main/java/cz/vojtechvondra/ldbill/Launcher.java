@@ -11,13 +11,13 @@ public class Launcher {
         BasicConfigurator.configure();
         Model dataset = ModelFactory.createDefaultModel();
         PSPDownloader dataDownloader = new PSPDownloader();
-        OrganAdapter oa = new OrganAdapter(new PSPExport(dataDownloader, "organy"), dataset);
+        OrganAdapterStep oa = new OrganAdapterStep(new PSPExport(dataDownloader, "organy"), dataset);
         oa.getModel();
-        PersonAdapter pa = new PersonAdapter(new PSPExport(dataDownloader, "osoby"), dataset);
+        PersonAdapterStep pa = new PersonAdapterStep(new PSPExport(dataDownloader, "osoby"), dataset);
         pa.getModel();
-        DeputyAdapter da = new DeputyAdapter(new PSPExport(dataDownloader, "poslanec"), dataset);
+        DeputyAdapterStep da = new DeputyAdapterStep(new PSPExport(dataDownloader, "poslanec"), dataset);
         da.getModel();
-        PartyMembershipStep pms = new PartyMembershipStep(new PSPExport(dataDownloader, "zarazeni"), dataset);
+        ParliamentMembershipStep pms = new ParliamentMembershipStep(new PSPExport(dataDownloader, "zarazeni"), dataset);
         pms.getModel();
         DeputyFilter df = new DeputyFilter(dataset);
         df.getModel();

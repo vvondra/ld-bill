@@ -9,9 +9,9 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Organ;
 
-public class OrganAdapter extends Adapter<Organ> {
+public class OrganAdapterStep extends AdapterStep<Organ> {
 
-    public OrganAdapter(PSPExport organExport, Model currentModel) {
+    public OrganAdapterStep(PSPExport organExport, Model currentModel) {
         super(organExport, currentModel);
     }
 

@@ -12,9 +12,9 @@ import cz.vojtechvondra.ldbill.entity.Person;
 import java.text.SimpleDateFormat;
 
 
-public class PersonAdapter extends Adapter<Person> {
+public class PersonAdapterStep extends AdapterStep<Person> {
 
-    public PersonAdapter(PSPExport export, Model currentModel) {
+    public PersonAdapterStep(PSPExport export, Model currentModel) {
         super(export, currentModel);
     }
 

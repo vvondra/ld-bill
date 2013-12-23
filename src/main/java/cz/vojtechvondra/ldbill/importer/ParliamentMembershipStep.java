@@ -5,7 +5,7 @@ import cz.vojtechvondra.ldbill.PSPExport;
 
 import java.io.IOException;
 
-public class PartyMembershipStep implements Step {
+public class ParliamentMembershipStep implements Step {
 
     private final PSPExport export;
     private final Model currentModel;
@@ -14,7 +14,7 @@ public class PartyMembershipStep implements Step {
      * @param export export data of person to deputy pairings
      * @param currentModel loaded model with deputies, organs and people
      */
-    public PartyMembershipStep(PSPExport export, Model currentModel) {
+    public ParliamentMembershipStep(PSPExport export, Model currentModel) {
         this.export = export;
         this.currentModel = currentModel;
     }

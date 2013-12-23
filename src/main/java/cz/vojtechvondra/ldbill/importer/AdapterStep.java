@@ -8,7 +8,7 @@ import cz.vojtechvondra.ldbill.entity.Entity;
 
 import java.io.IOException;
 
-abstract class Adapter<E extends Entity> implements Step {
+abstract class AdapterStep<E extends Entity> implements Step {
 
     protected PSPExport export;
 
@@ -22,7 +22,7 @@ abstract class Adapter<E extends Entity> implements Step {
      * Creates export adapter with an empty model to work with
      * @param export exported data to be added to the model
      */
-    public Adapter(PSPExport export) {
+    public AdapterStep(PSPExport export) {
         this(export, ModelFactory.createDefaultModel());
     }
 
@@ -31,7 +31,7 @@ abstract class Adapter<E extends Entity> implements Step {
      * @param export exported data to be added to the model
      * @param currentModel already loaded data
      */
-    public Adapter(PSPExport export, Model currentModel) {
+    public AdapterStep(PSPExport export, Model currentModel) {
         this.export = export;
         this.currentModel = currentModel;
     }

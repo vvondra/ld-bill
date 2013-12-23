@@ -8,9 +8,9 @@ import cz.vojtechvondra.ldbill.entity.Deputy;
 import cz.vojtechvondra.ldbill.entity.Organ;
 
 
-public class DeputyAdapter extends Adapter<Deputy> {
+public class DeputyAdapterStep extends AdapterStep<Deputy> {
 
-    public DeputyAdapter(PSPExport export, Model currentModel) {
+    public DeputyAdapterStep(PSPExport export, Model currentModel) {
         super(export, currentModel);
     }
 
