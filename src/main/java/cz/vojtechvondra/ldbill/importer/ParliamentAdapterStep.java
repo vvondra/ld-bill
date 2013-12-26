@@ -8,8 +8,9 @@ import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Organ;
+import cz.vojtechvondra.ldbill.entity.Parliament;
 
-public class ParliamentAdapterStep extends AdapterStep<Organ> {
+public class ParliamentAdapterStep extends AdapterStep<Parliament> {
     // TODO
     public static final String PARLIAMENT_AUTHORITY_RDF_URI = "http://linked.opendata.cz/resource/cz/authority/parliament";
 
@@ -18,19 +19,21 @@ public class ParliamentAdapterStep extends AdapterStep<Organ> {
     }
 
     @Override
-    protected Organ createEntity(String[] line) {
-        return new Organ(line);
+    protected Parliament createEntity(String[] line) {
+        return new Parliament(line);
     }
 
     @Override
-    protected void addEntityToModel(Model model, Organ entity) {
+    protected void addEntityToModel(Model model, Parliament entity) {
         if (entity.getShortCode().matches("PSP[0-9]+")) {
-            Resource organ = model.createResource(entity.getRdfUri());
-            organ.addProperty(RDF.type, FOAF.Group);
-            organ.addProperty(DC.title, entity.getFullTitle());
-            organ.addProperty(DC.identifier, entity.getShortCode());
-            organ.addProperty(FOAF.name, entity.getFullTitle());
-            organ.addProperty(OWL.sameAs, PARLIAMENT_AUTHORITY_RDF_URI);
+            Resource parliament = model.createResource(entity.getRdfUri());
+            parliament.addProperty(RDF.type, FOAF.Group);
+            parliament.addProperty(DC.title, entity.getFullTitle());
+            parliament.addProperty(DC.identifier, entity.getShortCode());
+            parliament.addProperty(FOAF.name, entity.getFullTitle());
+            parliament.addProperty(OWL.sameAs, PARLIAMENT_AUTHORITY_RDF_URI);
+        } else {
+            throw new IllegalStateException("Party entity without correct shortcode!");
         }
     }
 }

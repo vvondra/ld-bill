@@ -2,6 +2,10 @@ package cz.vojtechvondra.ldbill.entity;
 
 public class Organ implements Entity {
 
+    public static final Integer ORGAN_PARTY = 6;
+
+    public static final Integer ORGAN_PARLIAMENT = 11;
+
     protected String organId;
 
     protected String shortCode;
@@ -17,7 +21,7 @@ public class Organ implements Entity {
      * @param parts row from the organy export file
      */
     public Organ(String[] parts) {
-        if (parts.length < 10 || !parts[2].equals("6")) {
+        if (parts.length < 10) {
             throw new IllegalArgumentException("Incorrect organ import format");
         }
 
