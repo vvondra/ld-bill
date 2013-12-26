@@ -1,5 +1,9 @@
 package cz.vojtechvondra.ldbill.entity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Organ implements Entity {
 
     public static final Integer ORGAN_PARTY = 6;
@@ -11,6 +15,10 @@ public class Organ implements Entity {
     protected String shortCode;
 
     protected String fullTitle;
+
+    protected Date created;
+
+    protected Date expired;
 
     public Organ(String organId) {
         this.organId = organId;
@@ -29,6 +37,17 @@ public class Organ implements Entity {
         shortCode = parts[3];
         fullTitle = parts[4];
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            created = sdf.parse(parts[6]);
+        } catch (ParseException e) {
+            created = null;
+        }
+        try {
+            expired = sdf.parse(parts[7]);
+        } catch (ParseException e) {
+            expired = null;
+        }
     }
 
     public String getOrganId() {
