@@ -2,9 +2,11 @@ package cz.vojtechvondra.ldbill.importer;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.OWL;
 import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Organ;
+import cz.vojtechvondra.ldbill.entity.Person;
 
 import java.io.IOException;
 
@@ -33,7 +35,8 @@ public class ParliamentMembershipStep implements Step {
         while ((data = export.getLine()) != null) {
             Resource group = currentModel.createResource(Organ.getRdfPrefix() + data[1]);
             if (group.hasProperty(OWL.sameAs, ParliamentAdapterStep.PARLIAMENT_AUTHORITY_RDF_URI) && data[2].equals(MEMBERSHIP_FLAG)){
-
+                Person member = new Person(data[0]);
+                currentModel.createResource(member.getRdfUri()).addProperty(FOAF.member, group);
             }
         }
 

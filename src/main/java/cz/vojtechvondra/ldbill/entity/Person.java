@@ -26,6 +26,10 @@ public class Person implements Entity {
     public Person() {
     }
 
+    public Person(String personId) {
+         this.personId = personId;
+    }
+
     public Person(String[] data) {
         if (data.length < 9) {
             logger.debug("Invalid person row, length " + data.length);
