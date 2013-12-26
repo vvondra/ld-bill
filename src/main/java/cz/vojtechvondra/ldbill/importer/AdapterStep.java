@@ -54,7 +54,7 @@ abstract class AdapterStep<E extends Entity> implements Step {
      * Get the RDF model resulting from importing the supplied PSPExport
      * @return loaded RDF data from import
      */
-    public Model getModel() {
+    public Model extendModel() {
         String[] data;
 
         while ((data = export.getLine()) != null) {

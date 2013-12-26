@@ -22,7 +22,7 @@ public class DeputyFilter implements Step {
     }
 
     @Override
-    public Model getModel() {
+    public Model extendModel() {
         StmtIterator stmtIterator = currentModel.listStatements(null, RDF.type, FOAF.Person);
         ArrayList<Resource> toRemove = new ArrayList<>();
         while (stmtIterator.hasNext()) {

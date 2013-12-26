@@ -8,5 +8,5 @@ public interface Step {
     /**
      * Get the RDF model resulting from this step
      */
-    Model getModel();
+    Model extendModel();
 }

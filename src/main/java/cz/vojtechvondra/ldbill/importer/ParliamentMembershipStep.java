@@ -29,7 +29,7 @@ public class ParliamentMembershipStep implements Step {
     }
 
     @Override
-    public Model getModel() {
+    public Model extendModel() {
         String[] data;
 
         while ((data = export.getLine()) != null) {
