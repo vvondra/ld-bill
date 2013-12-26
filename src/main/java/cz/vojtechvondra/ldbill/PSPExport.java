@@ -28,7 +28,7 @@ public class PSPExport {
      * @throws IOException
      */
     public void prepare() throws IOException {
-       File exportFile = dataDownloader.getDataset(name);
+        File exportFile = dataDownloader.getDataset(name);
         in = new BufferedReader(new InputStreamReader( new FileInputStream(exportFile), "Cp1250"));
     }
 
