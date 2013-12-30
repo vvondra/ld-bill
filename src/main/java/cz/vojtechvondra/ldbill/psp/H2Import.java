@@ -1,7 +1,5 @@
-package cz.vojtechvondra.ldbill.importer;
+package cz.vojtechvondra.ldbill.psp;
 
-import cz.vojtechvondra.ldbill.psp.PSPDownloader;
-import cz.vojtechvondra.ldbill.psp.PSPExport;
 import cz.vojtechvondra.ldbill.psp.tables.TableDefinition;
 import org.apache.log4j.Logger;
 
@@ -18,13 +16,18 @@ public class H2Import {
     private final PSPExport export;
     static Logger logger = Logger.getLogger(H2Import.class);
 
-
     public H2Import(Connection connection, TableDefinition def, PSPExport export) {
         this.conn = connection;
         this.def = def;
         this.export = export;
     }
 
+    /**
+     * Imports all known datasets to H2
+     *
+     * @param connection JDBC connection to H2
+     * @param downloader Downloader for PSP archives
+     */
     public static void importAll(Connection connection, PSPDownloader downloader) {
         H2Import importer;
         for (String set : PSPDownloader.getKnownDatasetNames()) {
@@ -38,6 +41,9 @@ public class H2Import {
         }
     }
 
+    /**
+     * Imports a single dataset into the database
+     */
     public void importData() {
         String[] data;
         String[] colNames = def.getColNames();
@@ -66,6 +72,10 @@ public class H2Import {
         }
     }
 
+    /**
+     * Prepare the SQL statement for a single export row
+     * @return SQL INSERT string for prepared statement
+     */
     private String prepareInsertSql() {
         String[] colNames = def.getColNames();
         StringBuilder insertSql = new StringBuilder();
@@ -87,6 +97,10 @@ public class H2Import {
         return insertSql.toString();
     }
 
+    /**
+     * Creates a table in the database for the import
+     * @throws SQLException
+     */
     private void createSchema() throws SQLException {
         Statement stmt = conn.createStatement();
         String sql = String.format("CREATE TEMPORARY TABLE IF NOT EXISTS %s (%s)",
