@@ -30,7 +30,7 @@ public class ParliamentFileImport extends FileImport<Parliament> {
             parliament.addProperty(DC.title, entity.getFullTitle());
             parliament.addProperty(DC.identifier, entity.getShortCode());
             parliament.addProperty(FOAF.name, entity.getFullTitle());
-            parliament.addProperty(OWL.sameAs, PARLIAMENT_AUTHORITY_RDF_URI);
+            parliament.addProperty(OWL.sameAs, model.createResource(PARLIAMENT_AUTHORITY_RDF_URI));
         } else {
             throw new IllegalStateException("Party entity without correct shortcode!");
         }

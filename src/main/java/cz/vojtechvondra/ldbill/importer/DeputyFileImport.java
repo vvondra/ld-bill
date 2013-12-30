@@ -32,6 +32,6 @@ public class DeputyFileImport extends FileImport<Deputy> {
         }
 
         Organ party = new Organ(entity.getPartyId());
-        r.addProperty(FOAF.member, party.getRdfUri());
+        r.addProperty(FOAF.member, model.createResource(party.getRdfUri()));
     }
 }
