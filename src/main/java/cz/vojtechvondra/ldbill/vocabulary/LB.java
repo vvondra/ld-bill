@@ -5,7 +5,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 
-public class LB {
+public final class LB {
 
     protected static final String uri = "http://linked.opendata.cz/resource/legislation/bill#";
 
@@ -21,5 +21,8 @@ public class LB {
     public static final Resource Bill = m.createProperty(uri, "Bill");
 
     public static final Property billSponsor = m.createProperty(uri, "billSponsor");
+    public static final Property legislativeProcessStage = m.createProperty(uri, "legislativeProcessStage");
+    public static final Property outcome = m.createProperty(uri, "outcome");
+    public static final Property decidedBy = m.createProperty(uri, "decidedBy");
 
 }

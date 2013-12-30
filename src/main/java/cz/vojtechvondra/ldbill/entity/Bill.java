@@ -26,7 +26,6 @@ public class Bill implements Entity {
 
     static Logger logger = Logger.getLogger(Bill.class);
 
-
     public Bill(String number, String introductionDate, String title, String description, String billSponsor) throws IllegalArgumentException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         try {

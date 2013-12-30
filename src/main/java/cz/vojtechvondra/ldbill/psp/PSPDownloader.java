@@ -50,6 +50,13 @@ public class PSPDownloader {
         setsToFilesMapping.put("poslanec", ExportFiles.DEPUTIES);
         setsToFilesMapping.put("zarazeni", ExportFiles.DEPUTIES);
         setsToFilesMapping.put("tisky", ExportFiles.PARLIAMENTARY_PRESS);
+        setsToFilesMapping.put("tisky_za", ExportFiles.PARLIAMENTARY_PRESS);
+        setsToFilesMapping.put("hist", ExportFiles.PARLIAMENTARY_PRESS);
+        setsToFilesMapping.put("stavy", ExportFiles.PARLIAMENTARY_PRESS);
+        setsToFilesMapping.put("typ_stavu", ExportFiles.PARLIAMENTARY_PRESS);
+        setsToFilesMapping.put("typ_akce", ExportFiles.PARLIAMENTARY_PRESS);
+        setsToFilesMapping.put("prechody", ExportFiles.PARLIAMENTARY_PRESS);
+        setsToFilesMapping.put("hl2010s", ExportFiles.VOTE_2010);
     }
 
     /**

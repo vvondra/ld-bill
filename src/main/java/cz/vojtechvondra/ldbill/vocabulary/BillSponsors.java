@@ -3,8 +3,9 @@ package cz.vojtechvondra.ldbill.vocabulary;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Resource;
 
-public class BillSponsors {
+public final class BillSponsors {
 
     protected static final String uri = "http://linked.opendata.cz/resource/legislation/bill-sponsors#";
 
@@ -17,7 +18,7 @@ public class BillSponsors {
 
     private static Model m = ModelFactory.createDefaultModel();
 
-    public static final Property Sponsor = m.createProperty(uri, "Sponsor");
+    public static final Resource Sponsor = m.createProperty(uri, "Sponsor");
     public static final Property Representative = m.createProperty(uri, "Representative");
     public static final Property RepresentativeGroup = m.createProperty(uri, "RepresentativeGroup");
     public static final Property Senate = m.createProperty(uri, "Senate");
