@@ -1,4 +1,4 @@
-package cz.vojtechvondra.ldbill;
+package cz.vojtechvondra.ldbill.psp;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
@@ -11,12 +11,16 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Handles downloading and extracting datasets from the psp.cz official website
  */
 public class PSPDownloader {
 
+    /**
+     * File extension of database exports in PSP archives
+     */
     private static final String FILE_EXT = ".unl";
 
     /**
@@ -49,6 +53,13 @@ public class PSPDownloader {
     }
 
     /**
+     * @return datasets mapped to export files known to the downloader
+     */
+    public static Set<String> getKnownDatasetNames() {
+        return setsToFilesMapping.keySet();
+    }
+
+    /**
      * Downloads the appropriate ZIP file from the psp.cz website
      * @param file package file to download (may contain multiple datasets)
      * @return a resource representing the fetched archive
@@ -67,6 +78,12 @@ public class PSPDownloader {
         return tmpFile;
     }
 
+    /**
+     * Returns a File reference to a temporary directory, the directory is created if necessary
+     *
+     * @return temporary directory reserved for the application
+     * @throws IOException
+     */
     private File getTempDir() throws IOException {
         File tempDir = new File(System.getProperty("java.io.tmpdir") + "/ldbill");
         if (!tempDir.exists()) {

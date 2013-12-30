@@ -1,4 +1,4 @@
-package cz.vojtechvondra.ldbill;
+package cz.vojtechvondra.ldbill.psp;
 
 
 import java.io.*;
@@ -65,5 +65,6 @@ public class PSPExport {
         if (in != null) {
             in.close();
         }
+        in = null;
     }
 }

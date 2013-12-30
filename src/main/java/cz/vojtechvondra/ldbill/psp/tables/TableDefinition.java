@@ -11,6 +11,14 @@ abstract public class TableDefinition {
         return tableName.toUpperCase();
     }
 
+    public static TableDefinition factory(String name) throws ReflectiveOperationException {
+        char first = Character.toUpperCase(name.charAt(0));
+        name = first + name.substring(1);
+        return (TableDefinition)
+                Class.forName(TableDefinition.class.getPackage().getName() + "." + name + "TableDefinition")
+                        .newInstance();
+    }
+
     public String[] getColNames() {
         return colNames;
     }
