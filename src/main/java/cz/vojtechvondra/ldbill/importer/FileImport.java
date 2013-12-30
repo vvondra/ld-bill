@@ -2,7 +2,6 @@ package cz.vojtechvondra.ldbill.importer;
 
 
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 import cz.vojtechvondra.ldbill.entity.Entity;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
 
@@ -10,21 +9,13 @@ import java.io.IOException;
 
 abstract class FileImport<E extends Entity> implements Step {
 
-    protected PSPExport export;
+    protected final PSPExport export;
 
     /**
      * Data loaded from previous adapters or other sources
      * Do not change, just for reference; unions of the models should be done outside the adapter
      */
     protected final Model currentModel;
-
-    /**
-     * Creates export adapter with an empty model to work with
-     * @param export exported data to be added to the model
-     */
-    public FileImport(PSPExport export) {
-        this(export, ModelFactory.createDefaultModel());
-    }
 
     /**
      * Creates an export adapter allowing to specify already loaded data in the model
@@ -51,8 +42,8 @@ abstract class FileImport<E extends Entity> implements Step {
     protected abstract void addEntityToModel(Model model, E entity);
 
     /**
-     * Get the RDF model resulting from importing the supplied PSPExport
-     * @return loaded RDF data from import
+     * Get the RDF model resulting from importing the supplied PSPExport added to the current model
+     * @return union of the current model and data from the export
      */
     public Model extendModel() {
         String[] data;

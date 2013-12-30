@@ -20,7 +20,7 @@ public final class FRBR {
         return uri;
     }
 
-    private static Model m = ModelFactory.createDefaultModel();
+    private static final Model m = ModelFactory.createDefaultModel();
 
     public static final Resource Work = m.createProperty(uri, "Work");
     public static final Resource Expression = m.createProperty(uri, "Expression");

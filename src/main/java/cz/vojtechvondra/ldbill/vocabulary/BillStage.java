@@ -16,7 +16,7 @@ public final class BillStage {
         return uri;
     }
 
-    private static Model m = ModelFactory.createDefaultModel();
+    private static final Model m = ModelFactory.createDefaultModel();
 
     public static final Resource BillStage = m.createProperty(uri, "BillStage");
     public static final Property Introduced = m.createProperty(uri, "Introduced");

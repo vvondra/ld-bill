@@ -24,7 +24,7 @@ public class Launcher {
         //URL res = Launcher.class.getResource("bills.ttl");
 
         PSPDownloader dataDownloader = new PSPDownloader();
-        //importDeputies(dataset, dataDownloader);
+        importDeputies(dataset, dataDownloader);
         importBills(dataset, dataDownloader);
         try {
             dataset.write(new FileOutputStream(new File(System.getProperty("user.home") + "/data.ttl")), "TTL");

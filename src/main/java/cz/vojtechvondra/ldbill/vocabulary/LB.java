@@ -16,7 +16,7 @@ public final class LB {
         return uri;
     }
 
-    private static Model m = ModelFactory.createDefaultModel();
+    private static final Model m = ModelFactory.createDefaultModel();
 
     public static final Resource Bill = m.createProperty(uri, "Bill");
 

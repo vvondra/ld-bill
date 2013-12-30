@@ -15,7 +15,7 @@ public class DeputyFilter implements Step {
 
     static Logger logger = Logger.getLogger(DeputyFilter.class);
 
-    private Model currentModel;
+    private final Model currentModel;
 
     public DeputyFilter(Model currentModel) {
         this.currentModel = currentModel;
@@ -39,7 +39,7 @@ public class DeputyFilter implements Step {
         }
 
         for (Resource r : toRemove) {
-            //logger.debug("About to remove " + r.getURI());
+            logger.trace("About to remove " + r.getURI());
             currentModel.removeAll(r, null, null);
         }
 

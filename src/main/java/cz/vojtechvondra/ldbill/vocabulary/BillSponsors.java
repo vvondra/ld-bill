@@ -16,7 +16,7 @@ public final class BillSponsors {
         return uri;
     }
 
-    private static Model m = ModelFactory.createDefaultModel();
+    private static final Model m = ModelFactory.createDefaultModel();
 
     public static final Resource Sponsor = m.createProperty(uri, "Sponsor");
     public static final Property Representative = m.createProperty(uri, "Representative");
