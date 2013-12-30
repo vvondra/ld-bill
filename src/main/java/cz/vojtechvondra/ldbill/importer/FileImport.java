@@ -3,12 +3,12 @@ package cz.vojtechvondra.ldbill.importer;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Entity;
+import cz.vojtechvondra.ldbill.psp.PSPExport;
 
 import java.io.IOException;
 
-abstract class AdapterStep<E extends Entity> implements Step {
+abstract class FileImport<E extends Entity> implements Step {
 
     protected PSPExport export;
 
@@ -22,7 +22,7 @@ abstract class AdapterStep<E extends Entity> implements Step {
      * Creates export adapter with an empty model to work with
      * @param export exported data to be added to the model
      */
-    public AdapterStep(PSPExport export) {
+    public FileImport(PSPExport export) {
         this(export, ModelFactory.createDefaultModel());
     }
 
@@ -31,7 +31,7 @@ abstract class AdapterStep<E extends Entity> implements Step {
      * @param export exported data to be added to the model
      * @param currentModel already loaded data
      */
-    public AdapterStep(PSPExport export, Model currentModel) {
+    public FileImport(PSPExport export, Model currentModel) {
         this.export = export;
         this.currentModel = currentModel;
     }

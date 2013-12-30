@@ -6,12 +6,12 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
-import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Party;
+import cz.vojtechvondra.ldbill.psp.PSPExport;
 
-public class PartyAdapterStep extends AdapterStep<Party> {
+public class PartyFileImport extends FileImport<Party> {
 
-    public PartyAdapterStep(PSPExport organExport, Model currentModel) {
+    public PartyFileImport(PSPExport organExport, Model currentModel) {
         super(organExport, currentModel);
     }
 
@@ -22,8 +22,9 @@ public class PartyAdapterStep extends AdapterStep<Party> {
 
     /**
      * Adds the organ entity to the RDF model with the correct predicate names
+     *
      * @param organModel model being built
-     * @param o Organ entity with data
+     * @param o          Organ entity with data
      */
     protected void addEntityToModel(Model organModel, Party o) {
         Resource party = organModel.createResource(o.getRdfUri());

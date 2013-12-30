@@ -3,14 +3,14 @@ package cz.vojtechvondra.ldbill.importer;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
-import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Deputy;
 import cz.vojtechvondra.ldbill.entity.Organ;
+import cz.vojtechvondra.ldbill.psp.PSPExport;
 
 
-public class DeputyAdapterStep extends AdapterStep<Deputy> {
+public class DeputyFileImport extends FileImport<Deputy> {
 
-    public DeputyAdapterStep(PSPExport export, Model currentModel) {
+    public DeputyFileImport(PSPExport export, Model currentModel) {
         super(export, currentModel);
     }
 

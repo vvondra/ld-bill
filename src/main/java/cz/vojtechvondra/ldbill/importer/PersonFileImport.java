@@ -6,15 +6,15 @@ import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.VCARD;
-import cz.vojtechvondra.ldbill.PSPExport;
 import cz.vojtechvondra.ldbill.entity.Person;
+import cz.vojtechvondra.ldbill.psp.PSPExport;
 
 import java.text.SimpleDateFormat;
 
 
-public class PersonAdapterStep extends AdapterStep<Person> {
+public class PersonFileImport extends FileImport<Person> {
 
-    public PersonAdapterStep(PSPExport export, Model currentModel) {
+    public PersonFileImport(PSPExport export, Model currentModel) {
         super(export, currentModel);
     }
 

@@ -6,15 +6,14 @@ import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
-import cz.vojtechvondra.ldbill.PSPExport;
-import cz.vojtechvondra.ldbill.entity.Organ;
 import cz.vojtechvondra.ldbill.entity.Parliament;
+import cz.vojtechvondra.ldbill.psp.PSPExport;
 
-public class ParliamentAdapterStep extends AdapterStep<Parliament> {
+public class ParliamentFileImport extends FileImport<Parliament> {
     // TODO
     public static final String PARLIAMENT_AUTHORITY_RDF_URI = "http://linked.opendata.cz/resource/cz/authority/parliament";
 
-    public ParliamentAdapterStep(PSPExport export, Model currentModel) {
+    public ParliamentFileImport(PSPExport export, Model currentModel) {
         super(export, currentModel);
     }
 
