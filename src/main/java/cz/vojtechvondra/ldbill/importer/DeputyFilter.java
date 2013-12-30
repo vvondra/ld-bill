@@ -39,7 +39,7 @@ public class DeputyFilter implements Step {
         }
 
         for (Resource r : toRemove) {
-            logger.debug("About to remove " + r.getURI());
+            //logger.debug("About to remove " + r.getURI());
             currentModel.removeAll(r, null, null);
         }
 
