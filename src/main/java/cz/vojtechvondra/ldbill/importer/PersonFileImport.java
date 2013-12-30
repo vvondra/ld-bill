@@ -30,7 +30,7 @@ public class PersonFileImport extends FileImport<Person> {
         person.addProperty(RDF.type, VCARD.NAME); // TODO check name
         person.addProperty(DC.title, entity.getFirstName() + " " + entity.getLastName());
         person.addProperty(FOAF.firstName, entity.getFirstName());
-        person.addProperty(FOAF.family_name, entity.getLastName());
+        person.addProperty(FOAF.family_name, entity.getLastName()); // TODO change from deprecated
         if (entity.getTitleBeforeName().length() > 0) {
             person.addProperty(VCARD.Prefix, entity.getTitleBeforeName());
         }
