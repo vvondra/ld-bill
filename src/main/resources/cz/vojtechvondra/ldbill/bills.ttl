@@ -77,47 +77,51 @@ lb:Amendment a owl:Class ;
 ## lb:VoteInParliament properties
 
 lb:votedFor a owl:ObjectProperty ;
-  rdfs:label "Osoba hlasovala pro schválení hlasování"@cs, "A person voted for the vote."@en ;
-  rdfs:domain foaf:Person ;
-  rdfs:range lb:VoteInParliament ;
+  owl:inverseOf lb:hasSupporter ;
   rdfs:isDefinedBy lb:
   .
 
 lb:hasSupporter a owl:ObjectProperty ;
-  owl:inverseOf lb:votedFor
+  rdfs:label "Osoba hlasovala pro schválení hlasování"@cs, "A person voted for the vote."@en ;
+  rdfs:domain lb:VoteInParliament ;
+  rdfs:range foaf:Person ;
+  rdfs:isDefinedBy lb:
   .
 
 lb:votedAgainst a owl:ObjectProperty ;
-  rdfs:label "Osoba, která hlasovala proti schválení hlasování"@cs, "A person who voted against the vote."@en ;
-  rdfs:domain foaf:Person ;
-  rdfs:range lb:VoteInParliament ;
+  owl:inverseOf lb:hasOpponent ;
   rdfs:isDefinedBy lb:
   .
 
 lb:hasOpponent a owl:ObjectProperty ;
-  owl:inverseOf lb:votedAgainst
+  rdfs:label "Osoba, která hlasovala proti schválení hlasování"@cs, "A person who voted against the vote."@en ;
+  rdfs:domain lb:VoteInParliament ;
+  rdfs:range foaf:Person ;
+  rdfs:isDefinedBy lb:
   .
 
 lb:abstained a owl:ObjectProperty ;
-  rdfs:label "Osoba, která se zdržela hlasování"@cs, "A person who abstained from voting."@en ;
-  rdfs:domain foaf:Person ;
-  rdfs:range lb:VoteInParliament ;
+  owl:inverseOf lb:hasAbstainee
   rdfs:isDefinedBy lb:
   .
 
 lb:hasAbstainee a owl:ObjectProperty ;
-  owl:inverseOf lb:abstained
+  rdfs:label "Osoba, která se zdržela hlasování"@cs, "A person who abstained from voting."@en ;
+  rdfs:domain lb:VoteInParliament ;
+  rdfs:range foaf:Person ;
+  rdfs:isDefinedBy lb:
   .
 
 lb:absentAt a owl:ObjectProperty ;
-  rdfs:label "Osoba, která nebyla přítomna hlasování"@cs, "A person who was not present at the vote."@en ;
-  rdfs:domain foaf:Person ;
-  rdfs:range lb:VoteInParliament ;
+  owl:inverseOf lb:hasAbsentee
   rdfs:isDefinedBy lb:
   .
 
 lb:hasAbsentee a owl:ObjectProperty ;
-  owl:inverseOf lb:absentAt
+  rdfs:label "Osoba, která nebyla přítomna hlasování"@cs, "A person who was not present at the vote."@en ;
+  rdfs:domain lb:VoteInParliament ;
+  rdfs:range foaf:Person ;
+  rdfs:isDefinedBy lb:
   .
 ## lb:Bill properties
 
@@ -146,7 +150,7 @@ lb:fullName a owl:FunctionalProperty ;
   .
 
 
-lb:publishedAs a owl:FunctionalProperty ;
+lb:enaction a owl:FunctionalProperty ;
   rdfs:label "Odkaz na vyhlášený zákon ve Sbírce zákonů"@cs, "A reference to the resulting Act created by passing this Bill"@en ;
   rdfs:domain lb:Bill ;
   rdfs:range lex:Act ;
