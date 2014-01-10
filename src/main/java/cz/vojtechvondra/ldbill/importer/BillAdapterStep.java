@@ -16,7 +16,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class BillAdapterStep implements Step {
+public class BillAdapterStep implements ImportStep {
 
     /**
      * Prefix for RDF Act resources from the lex ontology

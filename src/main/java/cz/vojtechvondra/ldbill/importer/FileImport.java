@@ -7,7 +7,7 @@ import cz.vojtechvondra.ldbill.psp.PSPExport;
 
 import java.io.IOException;
 
-abstract class FileImport<E extends Entity> implements Step {
+abstract class FileImport<E extends Entity> implements ImportStep {
 
     protected final PSPExport export;
 

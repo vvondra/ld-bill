@@ -10,7 +10,7 @@ import cz.vojtechvondra.ldbill.psp.PSPExport;
 
 import java.io.IOException;
 
-public class ParliamentMembershipStep implements Step {
+public class ParliamentMembershipStep implements ImportStep {
 
     /**
      * Value marking active membership in group in PSP export

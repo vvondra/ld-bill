@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Filters out resources which are not valid deputies or miss necessary information
  */
-public class DeputyFilter implements Step {
+public class DeputyFilter implements ImportStep {
 
     static Logger logger = Logger.getLogger(DeputyFilter.class);
 
@@ -28,7 +28,7 @@ public class DeputyFilter implements Step {
         while (stmtIterator.hasNext()) {
             Statement stmt = stmtIterator.nextStatement();
             Resource person = stmt.getSubject();
-            Property[] required = new Property[] { FOAF.member, FOAF.mbox };
+            Property[] required = new Property[]{FOAF.member, FOAF.mbox};
             for (Property property : required) {
                 try {
                     person.getRequiredProperty(property);
