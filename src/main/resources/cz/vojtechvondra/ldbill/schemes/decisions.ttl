@@ -27,7 +27,7 @@ decisions:Refuses a skos:Concept, decisions:Decision ;
   skos:topConceptOf decisions:
   .
 
-decisions:PassesToCommitte a skos:Concept, decisions:Decision ;
+decisions:PassesToCommittee a skos:Concept, decisions:Decision ;
   skos:inScheme decisions: ;
   skos:prefLabel "Postupuje k posouzení výborům"@cs, "Passes the bill for committee consideration"@en ;
   skos:topConceptOf decisions:

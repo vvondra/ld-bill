@@ -24,5 +24,6 @@ public final class LB {
     public static final Property legislativeProcessStage = m.createProperty(uri, "legislativeProcessStage");
     public static final Property outcome = m.createProperty(uri, "outcome");
     public static final Property decidedBy = m.createProperty(uri, "decidedBy");
+    public static final Property enaction = m.createProperty(uri, "enaction");
 
 }

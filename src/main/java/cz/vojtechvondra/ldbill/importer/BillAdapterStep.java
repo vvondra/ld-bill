@@ -13,8 +13,10 @@ import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class BillAdapterStep implements Step {
+    public static final String LEX_ONTOLOGY_ACT_URI_PREFIX = "http://linked.opendata.cz/resource/legislation/cz/act/";
     private final Connection connection;
     private final Model currentModel;
     static Logger logger = Logger.getLogger(BillAdapterStep.class);
@@ -91,11 +93,30 @@ public class BillAdapterStep implements Step {
                 }
                 r.addProperty(LB.outcome, rev.getOutcome());
                 r.addProperty(LB.legislativeProcessStage, rev.getStage());
+
+                // Check if bill has been enacted
+                String collNo = results.getString("zaver_sb_cislo");
+                if (collNo.length() > 0) {
+                    // Add enaction to bill
+                    currentModel
+                            .createResource(rev.getBill().getRdfUri())
+                            .addProperty(LB.enaction, getAct(rev.getDate(), collNo));
+                }
+
                 previousRevision = rev;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private Resource getAct(java.util.Date date, String no) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int year = cal.get(Calendar.YEAR);
+        return currentModel.createResource(
+                String.format("%s%s/%s-%s", LEX_ONTOLOGY_ACT_URI_PREFIX, year, no, year)
+        );
     }
 
     private String getBillsSqlSelect() {
