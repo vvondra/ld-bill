@@ -7,6 +7,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 import cz.vojtechvondra.ldbill.entity.Bill;
 import cz.vojtechvondra.ldbill.entity.BillRevision;
+import cz.vojtechvondra.ldbill.entity.Vote;
 import cz.vojtechvondra.ldbill.vocabulary.FRBR;
 import cz.vojtechvondra.ldbill.vocabulary.LB;
 import org.apache.log4j.Logger;
@@ -103,6 +104,13 @@ public class BillAdapterStep implements Step {
                             .addProperty(LB.enaction, getAct(rev.getDate(), collNo));
                 }
 
+                int voteId = results.getInt("id_hlas");
+                if (voteId > 0) {
+                    Vote v = new Vote(voteId);
+                    r.addProperty(LB.decidedBy, currentModel.createResource(v.getRdfUri()));
+                }
+
+                // Set the previous revision to be the current one for the next loop iteration
                 previousRevision = rev;
             }
         } catch (SQLException e) {
