@@ -16,25 +16,22 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class BillAdapterStep implements ImportStep {
+public class BillAdapterStep extends H2Import {
 
     /**
      * Prefix for RDF Act resources from the lex ontology
      */
     public static final String LEX_ONTOLOGY_ACT_URI_PREFIX = "http://linked.opendata.cz/resource/legislation/cz/act/";
 
-    private final Connection connection;
-    private final Model currentModel;
-    private static Logger logger = Logger.getLogger(BillAdapterStep.class);
     private final SimpleDateFormat dateFormatter;
 
+    private static Logger logger = Logger.getLogger(BillAdapterStep.class);
+
     /**
-     * @param connection connection to database with temporary data
-     * @param currentModel model to be extended
+     * @inheritDoc
      */
     public BillAdapterStep(Connection connection, Model currentModel) {
-        this.connection = connection;
-        this.currentModel = currentModel;
+        super(connection, currentModel);
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     }
 
