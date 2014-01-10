@@ -6,8 +6,8 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
-import cz.vojtechvondra.ldbill.entity.Party;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
+import cz.vojtechvondra.ldbill.vo.Party;
 
 public class PartyFileImport extends FileImport<Party> {
 

@@ -4,9 +4,9 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.OWL;
-import cz.vojtechvondra.ldbill.entity.Organ;
-import cz.vojtechvondra.ldbill.entity.Person;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
+import cz.vojtechvondra.ldbill.vo.Organ;
+import cz.vojtechvondra.ldbill.vo.Person;
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ public class ParliamentMembershipStep implements ImportStep {
     private final Model currentModel;
 
     /**
-     * @param export export data of person to deputy pairings
+     * @param export       export data of person to deputy pairings
      * @param currentModel loaded model with deputies, organs and people
      */
     public ParliamentMembershipStep(PSPExport export, Model currentModel) {

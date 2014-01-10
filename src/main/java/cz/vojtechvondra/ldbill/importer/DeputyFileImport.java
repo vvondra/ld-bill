@@ -3,9 +3,9 @@ package cz.vojtechvondra.ldbill.importer;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
-import cz.vojtechvondra.ldbill.entity.Deputy;
-import cz.vojtechvondra.ldbill.entity.Organ;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
+import cz.vojtechvondra.ldbill.vo.Deputy;
+import cz.vojtechvondra.ldbill.vo.Organ;
 
 
 public class DeputyFileImport extends FileImport<Deputy> {

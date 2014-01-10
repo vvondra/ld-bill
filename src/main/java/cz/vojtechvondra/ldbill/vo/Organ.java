@@ -1,4 +1,4 @@
-package cz.vojtechvondra.ldbill.entity;
+package cz.vojtechvondra.ldbill.vo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,6 +26,7 @@ public class Organ implements Entity {
 
     /**
      * Creates an instance from a PSP .unl export file line
+     *
      * @param parts row from the organy export file
      */
     public Organ(String[] parts) {

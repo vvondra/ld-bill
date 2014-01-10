@@ -6,8 +6,8 @@ import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
-import cz.vojtechvondra.ldbill.entity.Parliament;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
+import cz.vojtechvondra.ldbill.vo.Parliament;
 
 public class ParliamentFileImport extends FileImport<Parliament> {
     // TODO

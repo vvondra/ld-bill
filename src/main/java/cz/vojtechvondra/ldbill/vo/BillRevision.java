@@ -1,4 +1,4 @@
-package cz.vojtechvondra.ldbill.entity;
+package cz.vojtechvondra.ldbill.vo;
 
 
 import com.hp.hpl.jena.rdf.model.Property;

@@ -6,8 +6,8 @@ import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.VCARD;
-import cz.vojtechvondra.ldbill.entity.Person;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
+import cz.vojtechvondra.ldbill.vo.Person;
 
 import java.text.SimpleDateFormat;
 

@@ -1,4 +1,4 @@
-package cz.vojtechvondra.ldbill.entity;
+package cz.vojtechvondra.ldbill.vo;
 
 import java.util.ArrayList;
 
@@ -16,6 +16,7 @@ public class Deputy extends Person {
 
     /**
      * Creates an instance from a PSP .unl export file line
+     *
      * @param parts from the poslanci.unl file
      */
     public Deputy(String[] parts) {
@@ -46,6 +47,7 @@ public class Deputy extends Person {
     public String getWebsite() {
         return website;
     }
+
     public String[] getEmails() {
         return emails;
     }
@@ -58,5 +60,7 @@ public class Deputy extends Person {
         return address;
     }
 
-    public String getPartyId() { return partyId; }
+    public String getPartyId() {
+        return partyId;
+    }
 }

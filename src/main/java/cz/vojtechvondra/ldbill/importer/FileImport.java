@@ -2,8 +2,8 @@ package cz.vojtechvondra.ldbill.importer;
 
 
 import com.hp.hpl.jena.rdf.model.Model;
-import cz.vojtechvondra.ldbill.entity.Entity;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
+import cz.vojtechvondra.ldbill.vo.Entity;
 
 import java.io.IOException;
 
@@ -19,7 +19,8 @@ abstract class FileImport<E extends Entity> implements ImportStep {
 
     /**
      * Creates an export adapter allowing to specify already loaded data in the model
-     * @param export exported data to be added to the model
+     *
+     * @param export       exported data to be added to the model
      * @param currentModel already loaded data
      */
     public FileImport(PSPExport export, Model currentModel) {
@@ -29,6 +30,7 @@ abstract class FileImport<E extends Entity> implements ImportStep {
 
     /**
      * Factory abstract method
+     *
      * @param line parsed line from export
      * @return entity with initialized data
      */
@@ -36,13 +38,15 @@ abstract class FileImport<E extends Entity> implements ImportStep {
 
     /**
      * Adds the specified entity to the RDF model with the appropriate properties
-     * @param model RDF model
+     *
+     * @param model  RDF model
      * @param entity Entity to be added
      */
     protected abstract void addEntityToModel(Model model, E entity);
 
     /**
      * Get the RDF model resulting from importing the supplied PSPExport added to the current model
+     *
      * @return union of the current model and data from the export
      */
     public Model extendModel() {

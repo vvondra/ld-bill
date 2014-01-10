@@ -1,4 +1,4 @@
-package cz.vojtechvondra.ldbill.entity;
+package cz.vojtechvondra.ldbill.vo;
 
 
 import org.apache.log4j.Logger;
@@ -27,7 +27,7 @@ public class Person implements Entity {
     }
 
     public Person(String personId) {
-         this.personId = personId;
+        this.personId = personId;
     }
 
     public Person(String[] data) {
@@ -53,6 +53,7 @@ public class Person implements Entity {
     public String getRdfUri() {
         return "http://linked.opendata.cz/resource/psp.cz/person/" + getPersonId();
     }
+
     public String getPersonId() {
         return personId;
     }
