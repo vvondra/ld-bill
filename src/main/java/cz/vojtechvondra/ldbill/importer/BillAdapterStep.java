@@ -17,19 +17,31 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class BillAdapterStep implements Step {
+
+    /**
+     * Prefix for RDF Act resources from the lex ontology
+     */
     public static final String LEX_ONTOLOGY_ACT_URI_PREFIX = "http://linked.opendata.cz/resource/legislation/cz/act/";
+
     private final Connection connection;
     private final Model currentModel;
-    static Logger logger = Logger.getLogger(BillAdapterStep.class);
+    private static Logger logger = Logger.getLogger(BillAdapterStep.class);
     private final SimpleDateFormat dateFormatter;
 
-
+    /**
+     * @param connection connection to database with temporary data
+     * @param currentModel model to be extended
+     */
     public BillAdapterStep(Connection connection, Model currentModel) {
         this.connection = connection;
         this.currentModel = currentModel;
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     }
 
+    /**
+     * Adds bills and bill revisions to the current model
+     * @return the extended Model
+     */
     @Override
     public Model extendModel() {
         Statement stmt;
@@ -58,6 +70,10 @@ public class BillAdapterStep implements Step {
         return currentModel;
     }
 
+    /**
+     * Creates a RDF resource for a bill and adds it to the model
+     * @param bill Bill entity with data
+     */
     private void addBillToModel(Bill bill) {
         logger.debug("Importing bill no. " + bill.getIdent());
         Resource b = currentModel.createResource(bill.getRdfUri());
@@ -70,6 +86,11 @@ public class BillAdapterStep implements Step {
         b.addProperty(LB.billSponsor, bill.getBillSponsor());
     }
 
+    /**
+     * Adds all revisions of a bill to the model
+     * @param billDbId ID of the bill in the temporary database
+     * @param bill Bill entity with data
+     */
     private void addBillRevisionsToModel(int billDbId, Bill bill) {
         PreparedStatement stmt;
         try {
@@ -77,6 +98,8 @@ public class BillAdapterStep implements Step {
             stmt.setInt(1, billDbId);
             ResultSet results = stmt.executeQuery();
             BillRevision previousRevision = null;
+
+            // Loop through all revisions
             while (results.next()) {
                 BillRevision rev = new BillRevision(
                         bill, results.getRow(),
@@ -118,6 +141,12 @@ public class BillAdapterStep implements Step {
         }
     }
 
+    /**
+     * Returns a RDF resource from the lex ontology with an act
+     * @param date Date of bill enaction
+     * @param no Collection number of the Act
+     * @return RDF resources representing the act from the Lex ontology
+     */
     private Resource getAct(java.util.Date date, String no) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
