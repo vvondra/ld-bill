@@ -29,7 +29,7 @@ public class PSPExport {
      */
     public void prepare() throws IOException {
         File exportFile = dataDownloader.getDataset(name);
-        in = new BufferedReader(new InputStreamReader( new FileInputStream(exportFile), "Cp1250"));
+        in = new BufferedReader(new InputStreamReader(new FileInputStream(exportFile), "Cp1250"));
     }
 
     /**

@@ -72,7 +72,7 @@ public class PSPDownloader {
      * @return a resource representing the fetched archive
      * @throws IOException
      */
-    public File downloadArchive(ExportFiles file) throws IOException {
+    private File downloadArchive(ExportFiles file) throws IOException {
         URL website = new URL(exportFiles.get(file));
         File tempDir = getTempDir();
         File tmpFile = new File(tempDir.getAbsolutePath() + "/" + website.getPath().substring(website.getPath().lastIndexOf("/")));
