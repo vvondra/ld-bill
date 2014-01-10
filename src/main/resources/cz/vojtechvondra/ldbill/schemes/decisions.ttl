@@ -27,6 +27,12 @@ decisions:Refuses a skos:Concept, decisions:Decision ;
   skos:topConceptOf decisions:
   .
 
+decisions:Spoilt a skos:Concept, decisions:Decision ;
+  skos:inScheme decisions: ;
+  skos:prefLabel "Zmatečné hlasování, na výsledek není brán zřetel"@cs, "Spoilt vote declared invalid"@en ;
+  skos:topConceptOf decisions:
+  .
+
 decisions:PassesToCommittee a skos:Concept, decisions:Decision ;
   skos:inScheme decisions: ;
   skos:prefLabel "Postupuje k posouzení výborům"@cs, "Passes the bill for committee consideration"@en ;

@@ -18,6 +18,7 @@
 @prefix lb:          <http://linked.opendata.cz/resource/legislation/bill#> .
 @prefix sponsors:  <http://linked.opendata.cz/resource/legislation/bill-sponsors#> .
 @prefix billstages:  <http://linked.opendata.cz/resource/legislation/bill-legislative-stages#> .
+@prefix decisions:  <http://linked.opendata.cz/resource/legislation/vote-decisions#> .
 
 # --- Ontology metadata ---------------------------------------
 
@@ -76,6 +77,44 @@ lb:Amendment a owl:Class ;
 
 ## lb:VoteInParliament properties
 
+lb:supporterCount a owl:FunctionalProperty ;
+  rdfs:domain lb:VoteInParliament ;
+  rdfs:range xsd:nonNegativeInteger ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:opponentCount a owl:FunctionalProperty ;
+  rdfs:domain lb:VoteInParliament ;
+  rdfs:range xsd:nonNegativeInteger ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:notPresentCount a owl:FunctionalProperty ;
+  rdfs:domain lb:VoteInParliament ;
+  rdfs:range xsd:nonNegativeInteger ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:abstainedCount a owl:FunctionalProperty ;
+  rdfs:domain lb:VoteInParliament ;
+  rdfs:range xsd:nonNegativeInteger ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:quorum a owl:FunctionalProperty ;
+  rdfs:domain lb:VoteInParliament ;
+  rdfs:range xsd:nonNegativeInteger ;
+  rdfs:isDefinedBy lb:
+  .
+
+lb:decision a owl:FunctionalProperty ;
+  rdfs:label "Výsledek hlasování"@cs, "Vote decision"@en ;
+  rdfs:comment "Rozhodnutí, na kterém bylo usneseno během hlasování. Kardinalita 0..1"@cs ;
+  rdfs:comment "Final outcome of a vote. Cardinality 0..1"@en ;
+  rdfs:domain lb:VoteInParliament ;
+  rdfs:range decisions:Decision
+  .
+
 lb:votedFor a owl:ObjectProperty ;
   owl:inverseOf lb:hasSupporter ;
   rdfs:isDefinedBy lb:
@@ -123,9 +162,8 @@ lb:hasAbsentee a owl:ObjectProperty ;
   rdfs:range foaf:Person ;
   rdfs:isDefinedBy lb:
   .
+
 ## lb:Bill properties
-
-
 lb:billSponsor a owl:FunctionalProperty ;
   rdfs:label "Předkladatel zákona"@cs, "Bill sponsor"@en ;
   rdfs:comment "Jeden z možných předkladatelů návrhu zákona. Kardinalita 1"@cs ;
@@ -198,9 +236,6 @@ lb:decidedBy a owl:FunctionalProperty ;
   rdfs:range lb:VoteInParliament ;
   rdfs:isDefinedBy lb:
   .
-
-
-
 
 # lb:Amendment properties
 

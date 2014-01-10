@@ -5,11 +5,10 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
-import cz.vojtechvondra.ldbill.vo.Bill;
 import cz.vojtechvondra.ldbill.vo.BillRevision;
 import cz.vojtechvondra.ldbill.vo.Vote;
+import cz.vojtechvondra.ldbill.vocabulary.Bill;
 import cz.vojtechvondra.ldbill.vocabulary.FRBR;
-import cz.vojtechvondra.ldbill.vocabulary.LB;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -47,7 +46,7 @@ public class BillAdapterStep extends H2Import {
             ResultSet results = stmt.executeQuery(getBillsSqlSelect());
             while (results.next()) {
                 try {
-                    Bill bill = new Bill(
+                    cz.vojtechvondra.ldbill.vo.Bill bill = new cz.vojtechvondra.ldbill.vo.Bill(
                             results.getString("ct"),
                             results.getString("predlozeno"),
                             results.getString("nazev_tisku"),
@@ -71,16 +70,16 @@ public class BillAdapterStep extends H2Import {
      * Creates a RDF resource for a bill and adds it to the model
      * @param bill Bill entity with data
      */
-    private void addBillToModel(Bill bill) {
+    private void addBillToModel(cz.vojtechvondra.ldbill.vo.Bill bill) {
         logger.debug("Importing bill no. " + bill.getIdent());
         Resource b = currentModel.createResource(bill.getRdfUri());
-        b.addProperty(RDF.type, LB.Bill);
+        b.addProperty(RDF.type, Bill.Bill);
         b.addProperty(DC.identifier, bill.getIdent());
         b.addProperty(DC.title, bill.getTitle());
         b.addProperty(DC.date, dateFormatter.format(bill.getIntroductionDate()));
         b.addProperty(DC.description, bill.getDescription());
         b.addProperty(RDFS.seeAlso, "http://www.psp.cz/sqw/historie.sqw?o=6&t=" + bill.getNumber());
-        b.addProperty(LB.billSponsor, bill.getBillSponsor());
+        b.addProperty(Bill.billSponsor, bill.getBillSponsor());
     }
 
     /**
@@ -88,7 +87,7 @@ public class BillAdapterStep extends H2Import {
      * @param billDbId ID of the bill in the temporary database
      * @param bill Bill entity with data
      */
-    private void addBillRevisionsToModel(int billDbId, Bill bill) {
+    private void addBillRevisionsToModel(int billDbId, cz.vojtechvondra.ldbill.vo.Bill bill) {
         PreparedStatement stmt;
         try {
             stmt = connection.prepareStatement(getBillRevisionsSqlSelect());
@@ -112,8 +111,8 @@ public class BillAdapterStep extends H2Import {
                 if (previousRevision != null) {
                     r.addProperty(FRBR.revisionOf, currentModel.createResource(previousRevision.getRdfUri()));
                 }
-                r.addProperty(LB.outcome, rev.getOutcome());
-                r.addProperty(LB.legislativeProcessStage, rev.getStage());
+                r.addProperty(Bill.outcome, rev.getOutcome());
+                r.addProperty(Bill.legislativeProcessStage, rev.getStage());
 
                 // Check if bill has been enacted
                 String collNo = results.getString("zaver_sb_cislo");
@@ -121,13 +120,13 @@ public class BillAdapterStep extends H2Import {
                     // Add enaction to bill
                     currentModel
                             .createResource(rev.getBill().getRdfUri())
-                            .addProperty(LB.enaction, getAct(rev.getDate(), collNo));
+                            .addProperty(Bill.enaction, getAct(rev.getDate(), collNo));
                 }
 
                 int voteId = results.getInt("id_hlas");
                 if (voteId > 0) {
                     Vote v = new Vote(voteId);
-                    r.addProperty(LB.decidedBy, currentModel.createResource(v.getRdfUri()));
+                    r.addProperty(Bill.decidedBy, currentModel.createResource(v.getRdfUri()));
                 }
 
                 // Set the previous revision to be the current one for the next loop iteration
