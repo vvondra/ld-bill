@@ -9,7 +9,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
 import cz.vojtechvondra.ldbill.vo.Parliament;
 
-public class ParliamentFileImport extends FileImport<Parliament> {
+public class ParliamentFileImport extends FileImportStep<Parliament> {
     // TODO
     public static final String PARLIAMENT_AUTHORITY_RDF_URI = "http://linked.opendata.cz/resource/cz/authority/parliament";
 

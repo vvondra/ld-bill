@@ -3,7 +3,6 @@ package cz.vojtechvondra.ldbill.importer;
 import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
-import cz.vojtechvondra.ldbill.Utils;
 import cz.vojtechvondra.ldbill.vo.Person;
 import cz.vojtechvondra.ldbill.vo.Vote;
 import cz.vojtechvondra.ldbill.vocabulary.Bill;
@@ -15,10 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
-public class VoteStep extends H2Import {
+public class VoteStep extends H2ImportStep {
 
     private static Logger logger = Logger.getLogger(VoteStep.class);
     private final DateFormat dateFormatter;

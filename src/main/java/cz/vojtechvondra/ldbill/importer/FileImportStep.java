@@ -7,7 +7,7 @@ import cz.vojtechvondra.ldbill.vo.Entity;
 
 import java.io.IOException;
 
-abstract class FileImport<E extends Entity> implements ImportStep {
+abstract class FileImportStep<E extends Entity> implements ImportStep {
 
     protected final PSPExport export;
 
@@ -23,7 +23,7 @@ abstract class FileImport<E extends Entity> implements ImportStep {
      * @param export       exported data to be added to the model
      * @param currentModel already loaded data
      */
-    public FileImport(PSPExport export, Model currentModel) {
+    public FileImportStep(PSPExport export, Model currentModel) {
         this.export = export;
         this.currentModel = currentModel;
     }

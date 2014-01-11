@@ -15,7 +15,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class BillAdapterStep extends H2Import {
+public class BillAdapterStep extends H2ImportStep {
 
     /**
      * Prefix for RDF Act resources from the lex ontology
@@ -156,7 +156,7 @@ public class BillAdapterStep extends H2Import {
     }
 
     private String getBillsSqlSelect() {
-        return "SELECT * FROM tisky WHERE id_druh = 2 OR id_druh = 1 ORDER BY id_tisk DESC LIMIT 100"; // TODO 100
+        return "SELECT * FROM tisky WHERE id_druh = 2 OR id_druh = 1 ORDER BY id_tisk DESC"; // TODO 100
     }
 
     private String getBillRevisionsSqlSelect() {

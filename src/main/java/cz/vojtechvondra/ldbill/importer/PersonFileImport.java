@@ -12,7 +12,7 @@ import cz.vojtechvondra.ldbill.vo.Person;
 import java.text.SimpleDateFormat;
 
 
-public class PersonFileImport extends FileImport<Person> {
+public class PersonFileImport extends FileImportStep<Person> {
 
     public PersonFileImport(PSPExport export, Model currentModel) {
         super(export, currentModel);

@@ -4,7 +4,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 import java.sql.Connection;
 
-public abstract class H2Import implements ImportStep {
+public abstract class H2ImportStep implements ImportStep {
 
     protected final Connection connection;
     protected final Model currentModel;
@@ -13,7 +13,7 @@ public abstract class H2Import implements ImportStep {
      * @param connection   connection to database with temporary data
      * @param currentModel model to be extended
      */
-    public H2Import(Connection connection, Model currentModel) {
+    public H2ImportStep(Connection connection, Model currentModel) {
         this.connection = connection;
         this.currentModel = currentModel;
     }

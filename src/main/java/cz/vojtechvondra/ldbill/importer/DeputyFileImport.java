@@ -8,7 +8,7 @@ import cz.vojtechvondra.ldbill.vo.Deputy;
 import cz.vojtechvondra.ldbill.vo.Organ;
 
 
-public class DeputyFileImport extends FileImport<Deputy> {
+public class DeputyFileImport extends FileImportStep<Deputy> {
 
     public DeputyFileImport(PSPExport export, Model currentModel) {
         super(export, currentModel);

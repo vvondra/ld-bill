@@ -9,7 +9,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
 import cz.vojtechvondra.ldbill.vo.Party;
 
-public class PartyFileImport extends FileImport<Party> {
+public class PartyFileImport extends FileImportStep<Party> {
 
     public PartyFileImport(PSPExport organExport, Model currentModel) {
         super(organExport, currentModel);
