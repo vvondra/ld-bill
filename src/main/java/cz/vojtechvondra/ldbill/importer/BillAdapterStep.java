@@ -123,10 +123,11 @@ public class BillAdapterStep extends H2Import {
                             .addProperty(Bill.enaction, getAct(rev.getDate(), collNo));
                 }
 
-                int voteId = results.getInt("id_hlas");
-                if (voteId > 0) {
+                String voteId = results.getString("id_hlas");
+                if (voteId.length() > 0) {
                     Vote v = new Vote(voteId);
-                    r.addProperty(Bill.decidedBy, currentModel.createResource(v.getRdfUri()));
+                    Resource voteRes = currentModel.createResource(v.getRdfUri());
+                    r.addProperty(Bill.decidedBy, voteRes);
                 }
 
                 // Set the previous revision to be the current one for the next loop iteration
