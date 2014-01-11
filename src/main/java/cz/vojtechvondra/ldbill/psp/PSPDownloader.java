@@ -33,6 +33,7 @@ public class PSPDownloader {
         exportFiles = new EnumMap<>(ExportFiles.class);
         exportFiles.put(ExportFiles.DEPUTIES, "http://www.psp.cz/eknih/cdrom/opendata/poslanci.zip");
         exportFiles.put(ExportFiles.PARLIAMENTARY_PRESS, "http://www.psp.cz/eknih/cdrom/opendata/tisky.zip");
+        exportFiles.put(ExportFiles.VOTE_2002, "http://www.psp.cz/eknih/cdrom/opendata/hl-2002ps.zip");
         exportFiles.put(ExportFiles.VOTE_2006, "http://www.psp.cz/eknih/cdrom/opendata/hl-2006ps.zip");
         exportFiles.put(ExportFiles.VOTE_2010, "http://www.psp.cz/eknih/cdrom/opendata/hl-2010ps.zip");
         exportFiles.put(ExportFiles.VOTE_2013, "http://www.psp.cz/eknih/cdrom/opendata/hl-2013ps.zip");
@@ -56,7 +57,17 @@ public class PSPDownloader {
         setsToFilesMapping.put("typ_stavu", ExportFiles.PARLIAMENTARY_PRESS);
         setsToFilesMapping.put("typ_akce", ExportFiles.PARLIAMENTARY_PRESS);
         setsToFilesMapping.put("prechody", ExportFiles.PARLIAMENTARY_PRESS);
+        setsToFilesMapping.put("hl2002s", ExportFiles.VOTE_2002);
+        setsToFilesMapping.put("hl2006s", ExportFiles.VOTE_2006);
         setsToFilesMapping.put("hl2010s", ExportFiles.VOTE_2010);
+        setsToFilesMapping.put("hl2013s", ExportFiles.VOTE_2013);
+        /*setsToFilesMapping.put("hl2002h1", ExportFiles.VOTE_2002);
+        setsToFilesMapping.put("hl2002h2", ExportFiles.VOTE_2002);
+        setsToFilesMapping.put("hl2006h1", ExportFiles.VOTE_2006);
+        setsToFilesMapping.put("hl2006h2", ExportFiles.VOTE_2006);
+        setsToFilesMapping.put("hl2010h1", ExportFiles.VOTE_2010);
+        setsToFilesMapping.put("hl2010h2", ExportFiles.VOTE_2010);
+        setsToFilesMapping.put("hl2013h1", ExportFiles.VOTE_2013);*/
     }
 
     /**
@@ -134,7 +145,8 @@ public class PSPDownloader {
         PARLIAMENTARY_PRESS,
         VOTE_2013,
         VOTE_2010,
-        VOTE_2006
+        VOTE_2006,
+        VOTE_2002
     }
 
 }
