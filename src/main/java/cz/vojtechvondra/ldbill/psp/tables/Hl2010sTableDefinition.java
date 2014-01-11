@@ -2,7 +2,7 @@ package cz.vojtechvondra.ldbill.psp.tables;
 
 public class Hl2010sTableDefinition extends TableDefinition {
     public Hl2010sTableDefinition() {
-        tableName = "hl2010s";
+        tableName = "hl_hlasovani";
         colNames = new String[]{
                 "id_hlasovani",
                 "id_organ",

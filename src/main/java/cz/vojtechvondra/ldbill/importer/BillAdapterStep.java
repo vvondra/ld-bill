@@ -158,7 +158,7 @@ public class BillAdapterStep extends H2Import {
     }
 
     private String getBillRevisionsSqlSelect() {
-        return "SELECT hist.*, tisky_za.*, t1.popis, t1.id_typ, typ_akce.popis as akce, cislo as cislo_hlas, hl2010s.datum as datum_hlasovani, vysledek, nazev_kratky, nazev_dlouhy, id_hlas\n" +
+        return "SELECT hist.*, tisky_za.*, t1.popis, t1.id_typ, typ_akce.popis as akce, cislo as cislo_hlas, hl_hlasovani.datum as datum_hlasovani, vysledek, nazev_kratky, nazev_dlouhy, id_hlas\n" +
                 "FROM hist\n" +
                 "JOIN prechody ON prechody.id_prechod = hist.id_prechod\n" +
                 "LEFT JOIN tisky_za ON tisky_za.id_hist = hist.id_hist\n" +
@@ -167,7 +167,7 @@ public class BillAdapterStep extends H2Import {
                 "JOIN typ_stavu AS t1 ON s1.id_typ = t1.id_typ\n" +
                 "JOIN typ_stavu AS t2 ON s2.id_typ = t2.id_typ\n" +
                 "JOIN typ_akce ON typ_akce.id_akce = prechody.id_akce\n" +
-                "LEFT JOIN hl2010s ON hist.id_hlas = id_hlasovani\n" +
+                "LEFT JOIN hl_hlasovani ON hist.id_hlas = id_hlasovani\n" +
                 "WHERE hist.id_tisk = ?\n" +
                 "ORDER BY hist.id_hist";
     }

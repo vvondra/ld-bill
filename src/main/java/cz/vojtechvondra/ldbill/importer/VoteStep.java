@@ -135,39 +135,15 @@ public class VoteStep extends H2Import {
     }
 
     private String getVoteSelect() {
-        String singleSelect = "SELECT *\n" +
-                "FROM hl%ss\n";
-
-        return "SELECT * FROM (" +
-                unionVoteSelects(singleSelect, new String[]{"2006", "2010", "2013"}) +
-                ") WHERE id_hlasovani = ?";
+        return "SELECT *\n" +
+                "FROM hlasovani\n" +
+                "WHERE id_hlasovani = ?";
     }
 
     private String getIndividualVotesSqlSelect() {
-        String singleSelect = "SELECT *\n" +
-                "FROM %1$s\n" +
-                "JOIN poslanec ON %1$s.id_poslanec = poslanec.id_poslanec\n";
-
-
-        return "SELECT * FROM (" +
-                unionVoteSelects(singleSelect, new String[] { "hl2006h", "hl2010h1", "hl2010h2", "hl2013h1" }) +
-                ") WHERE id_hlasovani = ? ORDER BY vysledek";
-    }
-
-    /**
-     * Votes are separated into separated tables which differ only with the year number in the table name
-     * This creates a union covering all, primary keys are disjoint
-     * @param singleSelect SQL query with year placeholder in table name
-     * @return Union of the passed query for all voting tables
-     */
-    private String unionVoteSelects(String singleSelect, String[] tableNames) {
-
-        List<String> queries = new ArrayList<>();
-
-        for (String year : tableNames) {
-            queries.add("(" + String.format(singleSelect, year) + ")");
-        }
-
-        return Utils.joinString(queries.toArray(new String[queries.size()]), " UNION ");
+        return "SELECT *\n" +
+                "FROM hl_poslanec\n" +
+                "JOIN poslanec ON %1$s.id_poslanec = poslanec.id_poslanec\n" +
+                "WHERE id_hlasovani = ?";
     }
 }
