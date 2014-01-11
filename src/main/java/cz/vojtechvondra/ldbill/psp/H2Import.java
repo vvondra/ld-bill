@@ -58,7 +58,17 @@ public class H2Import {
                 String insertSql = prepareInsertSql();
                 PreparedStatement stmt = conn.prepareStatement(insertSql);
                 for (int i = 0; i < colNames.length; i++) {
-                    stmt.setString(i + 1, data[i]);
+                    if (def.isNumericCol(colNames[i])) {
+                        int n;
+                        try {
+                            n = Integer.parseInt(data[i]);
+                        } catch (NumberFormatException e) {
+                            n = 0;
+                        }
+                        stmt.setInt(i + 1, n);
+                    } else {
+                        stmt.setString(i + 1, data[i]);
+                    }
                 }
                 stmt.executeUpdate();
             }

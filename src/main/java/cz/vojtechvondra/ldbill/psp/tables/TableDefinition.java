@@ -26,11 +26,20 @@ abstract public class TableDefinition {
     public String getColSqlDefinitions() {
         StringBuilder colDef = new StringBuilder();
         for (int i = 0; i < colNames.length; i++) {
-            colDef.append(colNames[i]).append(" CLOB");
+            colDef.append(colNames[i]);
+            if (isNumericCol(colNames[i])) {
+                colDef.append(" INT");
+            } else {
+                colDef.append(" CLOB");
+            }
             if (i != colNames.length - 1) {
                 colDef.append(",\n");
             }
         }
         return colDef.toString();
+    }
+
+    public boolean isNumericCol(String name) {
+        return name.length() > 3 && name.substring(0, 3).equals("id_");
     }
 }
