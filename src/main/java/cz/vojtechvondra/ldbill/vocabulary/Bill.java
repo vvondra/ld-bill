@@ -19,6 +19,7 @@ public final class Bill {
     private static final Model m = ModelFactory.createDefaultModel();
 
     public static final Resource Bill = m.createProperty(uri, "Bill");
+    public static final Resource VoteInParliament = m.createProperty(uri, "VoteInParliament");
 
     public static final Property billSponsor = m.createProperty(uri, "billSponsor");
     public static final Property legislativeProcessStage = m.createProperty(uri, "legislativeProcessStage");
@@ -32,5 +33,11 @@ public final class Bill {
     public static final Property abstainedCount = m.createProperty(uri, "abstainedCount");
     public static final Property quorum = m.createProperty(uri, "quorum");
     public static final Property decision = m.createProperty(uri, "decision");
+
+    public static final Property hasAbstainee = m.createProperty(uri, "hasAbstainee");
+    public static final Property hasAbsentee = m.createProperty(uri, "hasAbsentee");
+    public static final Property hasOpponent = m.createProperty(uri, "hasOpponent");
+    public static final Property hasSupporter = m.createProperty(uri, "hasSupporter");
+
 
 }
