@@ -117,6 +117,7 @@ public class BillAdapterStep extends H2Import {
                 // Check if bill has been enacted
                 String collNo = results.getString("zaver_sb_cislo");
                 if (collNo.length() > 0) {
+                    logger.debug("Bill revisions enacted as: " + collNo);
                     // Add enaction to bill
                     currentModel
                             .createResource(rev.getBill().getRdfUri())
@@ -124,7 +125,8 @@ public class BillAdapterStep extends H2Import {
                 }
 
                 String voteId = results.getString("id_hlas");
-                if (voteId.length() > 0) {
+                if (voteId.length() > 0 && !voteId.equals("0")) {
+                    logger.debug("Bill revisions decided by vote: " + voteId);
                     Vote v = new Vote(voteId);
                     Resource voteRes = currentModel.createResource(v.getRdfUri());
                     r.addProperty(Bill.decidedBy, voteRes);

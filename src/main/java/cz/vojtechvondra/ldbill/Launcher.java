@@ -37,12 +37,14 @@ public class Launcher {
     protected static void importBills(Model dataset, PSPDownloader dataDownloader) {
         Connection con;
         JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL("jdbc:h2:mem:bills");
+        ds.setURL("jdbc:h2:~/dev/bills.h2");
         try {
             con = ds.getConnection();
             H2Import.importAll(con, dataDownloader);
             BillAdapterStep ba = new BillAdapterStep(con, dataset);
             ba.extendModel();
+            VoteStep vs = new VoteStep(con, dataset);
+            vs.extendModel();
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();

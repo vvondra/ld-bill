@@ -43,10 +43,11 @@ public class VoteStep extends H2Import {
                 Resource vote = voteNode.asResource();
                 int voteDbId = Integer.parseInt(vote.getURI().substring(vote.getURI().lastIndexOf("/") + 1));
                 Vote v = loadVoteById(voteDbId);
-                if (v == null) {
+                if (v == null || voteDbId == 0) {
                     logger.warn("Could not load vote for ID: " + voteDbId);
                     continue;
                 }
+                logger.debug("Adding vote: " + vote.getURI());
                 vote.addProperty(RDF.type, Bill.VoteInParliament);
                 vote.addProperty(DC.date, dateFormatter.format(v.getDate()));
                 vote.addProperty(DC.title, v.getTitle());
@@ -136,7 +137,7 @@ public class VoteStep extends H2Import {
 
     private String getVoteSelect() {
         return "SELECT *\n" +
-                "FROM hlasovani\n" +
+                "FROM hl_hlasovani\n" +
                 "WHERE id_hlasovani = ?";
     }
 

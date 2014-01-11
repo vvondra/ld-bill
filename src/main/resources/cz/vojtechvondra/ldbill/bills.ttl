@@ -140,7 +140,7 @@ lb:hasOpponent a owl:ObjectProperty ;
   .
 
 lb:abstained a owl:ObjectProperty ;
-  owl:inverseOf lb:hasAbstainee
+  owl:inverseOf lb:hasAbstainee ;
   rdfs:isDefinedBy lb:
   .
 
@@ -152,7 +152,7 @@ lb:hasAbstainee a owl:ObjectProperty ;
   .
 
 lb:absentAt a owl:ObjectProperty ;
-  owl:inverseOf lb:hasAbsentee
+  owl:inverseOf lb:hasAbsentee ;
   rdfs:isDefinedBy lb:
   .
 
