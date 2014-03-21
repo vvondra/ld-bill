@@ -1,5 +1,7 @@
 package cz.vojtechvondra.ldbill.psp.tables;
 
+import cz.vojtechvondra.ldbill.psp.TableDefinition;
+
 public class Tisky_zaTableDefinition extends TableDefinition {
     public Tisky_zaTableDefinition() {
         tableName = "tisky_za";

@@ -1,5 +1,7 @@
 package cz.vojtechvondra.ldbill.psp.tables;
 
+import cz.vojtechvondra.ldbill.psp.TableDefinition;
+
 public class OrganyTableDefinition extends TableDefinition {
     public OrganyTableDefinition() {
         tableName = "organy";

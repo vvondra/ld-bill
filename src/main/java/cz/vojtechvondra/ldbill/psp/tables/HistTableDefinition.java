@@ -1,5 +1,7 @@
 package cz.vojtechvondra.ldbill.psp.tables;
 
+import cz.vojtechvondra.ldbill.psp.TableDefinition;
+
 public class HistTableDefinition extends TableDefinition {
     public HistTableDefinition() {
         tableName = "hist";
