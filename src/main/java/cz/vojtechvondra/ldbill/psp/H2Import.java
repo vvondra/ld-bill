@@ -1,6 +1,5 @@
 package cz.vojtechvondra.ldbill.psp;
 
-import cz.vojtechvondra.ldbill.psp.tables.TableDefinition;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -8,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 
 public class H2Import {
@@ -116,5 +116,22 @@ public class H2Import {
         String sql = String.format("CREATE TEMPORARY TABLE IF NOT EXISTS %s (%s)",
                 def.getTableName(), def.getColSqlDefinitions());
         stmt.executeUpdate(sql);
+
+        List<String> indices = def.getIndices();
+        for (String index : indices) {
+            sql = String.format("CREATE INDEX IF NOT EXISTS %s ON %s(%s)",
+                    getIndexName(def.getTableName(), index), def.getTableName(), index);
+            stmt.executeUpdate(sql);
+        }
+    }
+
+
+    /**
+     * @param tableName Table name in which to create index
+     * @param colName Column name which is part of the index
+     * @return Generated index name from table and column
+     */
+    private String getIndexName(String tableName, String colName) {
+        return ("IDX" + tableName + colName).toUpperCase();
     }
 }
