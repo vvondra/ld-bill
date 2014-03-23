@@ -46,18 +46,25 @@ public class H2Import {
      * Imports a single dataset into the database
      */
     public void importData() {
+        int batchCount = 0;
         String[] data;
         String[] colNames = def.getColNames();
+        String insertSql = prepareInsertSql();
+        PreparedStatement stmt = null;
         try {
+            conn.setAutoCommit(false);
             createSchema();
+            stmt = conn.prepareStatement(insertSql);
+        } catch (SQLException e) {
+            logger.error("Could not create prepared statement", e);
+            return;
+        }
+        try {
             while ((data = export.getLine()) != null) {
                 if (data.length - 1 != colNames.length) {
                     logger.warn("Column count mismatch in H2 import: " + data.length + " vs. " + colNames.length);
                     continue;
                 }
-
-                String insertSql = prepareInsertSql();
-                PreparedStatement stmt = conn.prepareStatement(insertSql);
                 for (int i = 0; i < colNames.length; i++) {
                     if (def.isNumericCol(colNames[i])) {
                         int n;
@@ -71,10 +78,27 @@ public class H2Import {
                         stmt.setString(i + 1, data[i]);
                     }
                 }
-                stmt.executeUpdate();
+                stmt.addBatch();
+                if ((batchCount + 1) % 100 == 0) {
+                    stmt.executeBatch();
+                    conn.commit();
+                    stmt.close();
+                    stmt = conn.prepareStatement(insertSql);
+                    batchCount = 0;
+                }
+                batchCount++;
             }
+            stmt.executeBatch();
+            conn.commit();
         } catch (SQLException e) {
             logger.error("SQL error in H2 import.", e);
+        } finally {
+            try {
+                stmt.close();
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                logger.error("Could not close prepared statement.", e);
+            }
         }
         try {
             export.close();
@@ -114,7 +138,8 @@ public class H2Import {
      */
     private void createSchema() throws SQLException {
         Statement stmt = conn.createStatement();
-        String sql = String.format("CREATE TEMPORARY TABLE IF NOT EXISTS %s (%s)",
+        logger.debug("Creating table " + def.getTableName());
+        String sql = String.format("CREATE TABLE IF NOT EXISTS %s (%s)",
                 def.getTableName(), def.getColSqlDefinitions());
         stmt.executeUpdate(sql);
 
@@ -124,6 +149,7 @@ public class H2Import {
                     getIndexName(def.getTableName(), index), def.getTableName(), index);
             stmt.executeUpdate(sql);
         }
+        stmt.close();
     }
 
 

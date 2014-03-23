@@ -57,7 +57,7 @@ abstract public class TableDefinition {
             if (isNumericCol(colNames[i])) {
                 colDef.append(" INT");
             } else {
-                colDef.append(" CLOB");
+                colDef.append(" TEXT");
             }
             if (i != colNames.length - 1) {
                 colDef.append(",\n");
