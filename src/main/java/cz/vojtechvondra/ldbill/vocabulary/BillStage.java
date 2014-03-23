@@ -18,6 +18,7 @@ public final class BillStage {
     private static final Model m = ModelFactory.createDefaultModel();
 
     public static final Resource BillStage = m.createProperty(uri, "BillStage");
+
     public static final Property Introduced = m.createProperty(uri, "Introduced");
     public static final Property GovernmentPosition = m.createProperty(uri, "GovernmentPosition");
     public static final Property FirstReading = m.createProperty(uri, "FirstReading");
@@ -31,5 +32,6 @@ public final class BillStage {
     public static final Property PresidentialVetoOverride = m.createProperty(uri, "PresidentialVetoOverride");
     public static final Property President = m.createProperty(uri, "President");
     public static final Property Passed = m.createProperty(uri, "Passed");
+    public static final Property ObsoleteProcedure = m.createProperty(uri, "ObsoleteProcedure");
 
 }

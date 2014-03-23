@@ -1,7 +1,7 @@
 package cz.vojtechvondra.ldbill.vo;
 
 
-import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 import cz.vojtechvondra.ldbill.vocabulary.BillSponsors;
 import org.apache.log4j.Logger;
 
@@ -22,7 +22,7 @@ public class Bill implements Entity {
 
     private String description;
 
-    private Property billSponsor;
+    private RDFNode billSponsor;
 
     static Logger logger = Logger.getLogger(Bill.class);
 
@@ -74,15 +74,16 @@ public class Bill implements Entity {
         return getYear() + "/" + getNumber();
     }
 
-    public Property getBillSponsor() {
+    public RDFNode getBillSponsor() {
         return billSponsor;
     }
 
     /**
      * Maps possible bill sponsors
      */
-    public static Property getSponsorProperty(String sponsorId) {
+    public static RDFNode getSponsorProperty(String sponsorId) {
         switch (sponsorId) {
+            case "0": // @todo add description
             case "1":
                 return BillSponsors.Government;
             case "2":
@@ -110,5 +111,10 @@ public class Bill implements Entity {
         }
 
         throw new IllegalArgumentException("Unknown bill sponsor provided: " + sponsorId);
+    }
+
+    @Override
+    public String toString() {
+        return getRdfUri();
     }
 }
