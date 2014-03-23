@@ -2,6 +2,7 @@ package cz.vojtechvondra.ldbill.vo;
 
 
 import com.hp.hpl.jena.rdf.model.Property;
+import cz.vojtechvondra.ldbill.exceptions.UnknownLegislativeStageException;
 import cz.vojtechvondra.ldbill.vocabulary.BillStage;
 import org.apache.log4j.Logger;
 
@@ -24,7 +25,12 @@ public class BillRevision implements Entity {
         this.bill = bill;
         this.revisionNumber = revisionNumber;
         this.description = description;
-        this.stage = getLegislativeProcessStage(stage);
+        try {
+            this.stage = getLegislativeProcessStage(stage);
+        } catch (UnknownLegislativeStageException e) {
+            logger.warn(bill.toString() + " " + e.getMessage());
+            throw e;
+        }
         this.outcome = outcome;
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
@@ -94,9 +100,11 @@ public class BillRevision implements Entity {
                 return BillStage.SenateVetoOverride;
             case "21":
                 return BillStage.Amendments;
+            case "42":
+                return BillStage.ObsoleteProcedure;
         }
 
-        throw new IllegalArgumentException("Unknown stage provided: " + stageId);
+        throw new UnknownLegislativeStageException("Unknown stage provided: " + stageId);
     }
 
 }
