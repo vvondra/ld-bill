@@ -13,7 +13,9 @@ import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class BillAdapterStep extends H2ImportStep {
 
@@ -46,6 +48,11 @@ public class BillAdapterStep extends H2ImportStep {
             ResultSet results = stmt.executeQuery(getBillsSqlSelect());
             while (results.next()) {
                 try {
+                    int termId = results.getInt("od_org_obdobi");
+                    if (!isContemporaryParliament(termId)) {
+                        logger.debug("Historical bill, skipping");
+                        continue;
+                    }
                     cz.vojtechvondra.ldbill.vo.Bill bill = new cz.vojtechvondra.ldbill.vo.Bill(
                             results.getString("ct"),
                             results.getString("predlozeno"),
@@ -64,6 +71,14 @@ public class BillAdapterStep extends H2ImportStep {
         }
 
         return currentModel;
+    }
+
+    /**
+     * @param termId Parliamentary term ID
+     * @return True if the parliament is from the modern history of the Czech Republic
+     */
+    private boolean isContemporaryParliament(int termId) {
+        return contemporaryParliamentIds.contains(termId);
     }
 
     /**
@@ -173,4 +188,21 @@ public class BillAdapterStep extends H2ImportStep {
                 "WHERE hist.id_tisk = ?\n" +
                 "ORDER BY hist.id_hist";
     }
+
+    /**
+     * A list of IDs of modern-time Parliamentary terms for the czech Parliament
+     */
+    private static final List<Integer> contemporaryParliamentIds;
+
+    static {
+        contemporaryParliamentIds = new ArrayList<>();
+        contemporaryParliamentIds.add(165);
+        contemporaryParliamentIds.add(166);
+        contemporaryParliamentIds.add(167);
+        contemporaryParliamentIds.add(168);
+        contemporaryParliamentIds.add(169);
+        contemporaryParliamentIds.add(170);
+        contemporaryParliamentIds.add(171);
+    }
+
 }

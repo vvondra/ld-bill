@@ -31,7 +31,7 @@ public class Bill implements Entity {
         try {
             this.introductionDate = sdf.parse(introductionDate);
         } catch (ParseException e) {
-            logger.warn("Could not parse date of introduction: " + introductionDate);
+            logger.warn("Could not parse date of introduction: " + introductionDate + " for bill no: " + number);
             throw new IllegalArgumentException(e);
         }
 
@@ -92,6 +92,20 @@ public class Bill implements Entity {
             case "4":
                 return BillSponsors.Senate;
             case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case "10":
+            case "11":
+            case "12":
+            case "13":
+            case "14":
+            case "15":
+            case "16":
+            case "17":
+            case "18":
+            case "19":
                 return BillSponsors.RegionalAssembly;
         }
 
