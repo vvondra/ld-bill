@@ -32,6 +32,7 @@ public class H2Import {
         H2Import importer;
         for (String set : PSPDownloader.getKnownDatasetNames()) {
             try {
+                logger.debug("Importing dataset to H2: " + set);
                 importer = new H2Import(connection, TableDefinition.factory(set), new PSPExport(downloader, set));
                 importer.importData();
                 logger.debug("Imported dataset to H2: " + set);

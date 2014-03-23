@@ -54,7 +54,7 @@ public class VoteStep extends H2ImportStep {
                 vote.addProperty(Bill.abstainedCount, Integer.toString(v.getAbstaineeCount() + v.getDidNotVoteCount()));
                 vote.addProperty(Bill.quorum, Integer.toString(v.getQuorum()));
                 vote.addProperty(Bill.decision, v.getResultConcept());
-               //addBallotsToVote(voteDbId, v);
+                addBallotsToVote(voteDbId, v);
             }
         }
 
@@ -141,7 +141,7 @@ public class VoteStep extends H2ImportStep {
     private String getIndividualVotesSqlSelect() {
         return "SELECT *\n" +
                 "FROM hl_poslanec\n" +
-                "JOIN poslanec ON %1$s.id_poslanec = poslanec.id_poslanec\n" +
+                "JOIN poslanec ON hl_poslanec.id_poslanec = poslanec.id_poslanec\n" +
                 "WHERE id_hlasovani = ?";
     }
 }

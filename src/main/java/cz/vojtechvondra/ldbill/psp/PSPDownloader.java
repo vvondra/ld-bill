@@ -61,13 +61,14 @@ public class PSPDownloader {
         setsToFilesMapping.put("hl2006s", ExportFiles.VOTE_2006);
         setsToFilesMapping.put("hl2010s", ExportFiles.VOTE_2010);
         setsToFilesMapping.put("hl2013s", ExportFiles.VOTE_2013);
-        /*setsToFilesMapping.put("hl2002h1", ExportFiles.VOTE_2002);
+        setsToFilesMapping.put("hl2002h1", ExportFiles.VOTE_2002);
         setsToFilesMapping.put("hl2002h2", ExportFiles.VOTE_2002);
+        setsToFilesMapping.put("hl2002h3", ExportFiles.VOTE_2002);
         setsToFilesMapping.put("hl2006h1", ExportFiles.VOTE_2006);
         setsToFilesMapping.put("hl2006h2", ExportFiles.VOTE_2006);
         setsToFilesMapping.put("hl2010h1", ExportFiles.VOTE_2010);
         setsToFilesMapping.put("hl2010h2", ExportFiles.VOTE_2010);
-        setsToFilesMapping.put("hl2013h1", ExportFiles.VOTE_2013);*/
+        setsToFilesMapping.put("hl2013h1", ExportFiles.VOTE_2013);
     }
 
     /**
