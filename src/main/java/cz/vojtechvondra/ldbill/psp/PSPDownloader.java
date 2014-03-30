@@ -33,6 +33,8 @@ public class PSPDownloader {
         exportFiles = new EnumMap<>(ExportFiles.class);
         exportFiles.put(ExportFiles.DEPUTIES, "http://www.psp.cz/eknih/cdrom/opendata/poslanci.zip");
         exportFiles.put(ExportFiles.PARLIAMENTARY_PRESS, "http://www.psp.cz/eknih/cdrom/opendata/tisky.zip");
+        exportFiles.put(ExportFiles.VOTE_1996, "http://www.psp.cz/eknih/cdrom/opendata/hl-1996ps.zip");
+        exportFiles.put(ExportFiles.VOTE_1998, "http://www.psp.cz/eknih/cdrom/opendata/hl-1998ps.zip");
         exportFiles.put(ExportFiles.VOTE_2002, "http://www.psp.cz/eknih/cdrom/opendata/hl-2002ps.zip");
         exportFiles.put(ExportFiles.VOTE_2006, "http://www.psp.cz/eknih/cdrom/opendata/hl-2006ps.zip");
         exportFiles.put(ExportFiles.VOTE_2010, "http://www.psp.cz/eknih/cdrom/opendata/hl-2010ps.zip");
@@ -57,10 +59,16 @@ public class PSPDownloader {
         setsToFilesMapping.put("typ_stavu", ExportFiles.PARLIAMENTARY_PRESS);
         setsToFilesMapping.put("typ_akce", ExportFiles.PARLIAMENTARY_PRESS);
         setsToFilesMapping.put("prechody", ExportFiles.PARLIAMENTARY_PRESS);
+        setsToFilesMapping.put("hl1996s", ExportFiles.VOTE_1996);
+        setsToFilesMapping.put("hl1998s", ExportFiles.VOTE_1998);
         setsToFilesMapping.put("hl2002s", ExportFiles.VOTE_2002);
         setsToFilesMapping.put("hl2006s", ExportFiles.VOTE_2006);
         setsToFilesMapping.put("hl2010s", ExportFiles.VOTE_2010);
         setsToFilesMapping.put("hl2013s", ExportFiles.VOTE_2013);
+        setsToFilesMapping.put("hl1996h1", ExportFiles.VOTE_1996);
+        setsToFilesMapping.put("hl1998h1", ExportFiles.VOTE_1998);
+        setsToFilesMapping.put("hl1998h2", ExportFiles.VOTE_1998);
+        setsToFilesMapping.put("hl1998h3", ExportFiles.VOTE_1998);
         setsToFilesMapping.put("hl2002h1", ExportFiles.VOTE_2002);
         setsToFilesMapping.put("hl2002h2", ExportFiles.VOTE_2002);
         setsToFilesMapping.put("hl2002h3", ExportFiles.VOTE_2002);
@@ -147,7 +155,9 @@ public class PSPDownloader {
         VOTE_2013,
         VOTE_2010,
         VOTE_2006,
-        VOTE_2002
+        VOTE_2002,
+        VOTE_1998,
+        VOTE_1996,
     }
 
 }
