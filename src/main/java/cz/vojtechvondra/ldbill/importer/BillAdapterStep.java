@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class BillAdapterStep extends H2ImportStep {
+public class BillAdapterStep extends JdbcImportStep {
 
     /**
      * Prefix for RDF Act resources from the lex ontology

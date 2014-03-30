@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class VoteStep extends H2ImportStep {
+public class VoteStep extends JdbcImportStep {
 
     private static Logger logger = Logger.getLogger(VoteStep.class);
     private final DateFormat dateFormatter;
