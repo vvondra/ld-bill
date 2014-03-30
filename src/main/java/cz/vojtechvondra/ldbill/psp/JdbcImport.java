@@ -1,5 +1,6 @@
 package cz.vojtechvondra.ldbill.psp;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -10,13 +11,13 @@ import java.sql.Statement;
 import java.util.List;
 
 
-public class H2Import {
+public class JdbcImport {
     private final Connection conn;
     private final TableDefinition def;
     private final PSPExport export;
-    static Logger logger = Logger.getLogger(H2Import.class);
+    static Logger logger = Logger.getLogger(JdbcImport.class);
 
-    public H2Import(Connection connection, TableDefinition def, PSPExport export) {
+    public JdbcImport(Connection connection, TableDefinition def, PSPExport export) {
         this.conn = connection;
         this.def = def;
         this.export = export;
@@ -29,11 +30,11 @@ public class H2Import {
      * @param downloader Downloader for PSP archives
      */
     public static void importAll(Connection connection, PSPDownloader downloader) {
-        H2Import importer;
+        JdbcImport importer;
         for (String set : PSPDownloader.getKnownDatasetNames()) {
             try {
                 logger.debug("Importing dataset to H2: " + set);
-                importer = new H2Import(connection, TableDefinition.factory(set), new PSPExport(downloader, set));
+                importer = new JdbcImport(connection, TableDefinition.factory(set), new PSPExport(downloader, set));
                 importer.importData();
                 logger.debug("Imported dataset to H2: " + set);
             } catch (ReflectiveOperationException e) {
@@ -116,7 +117,7 @@ public class H2Import {
         StringBuilder insertSql = new StringBuilder();
         insertSql.append("INSERT INTO ").append(def.getTableName()).append("(");
         for (int i = 0; i < colNames.length; i++) {
-            insertSql.append("\"").append(colNames[i].toUpperCase()).append("\"");
+            insertSql.append(colNames[i].toUpperCase());
             if (i != colNames.length - 1) {
                 insertSql.append(", ");
             }
@@ -145,9 +146,13 @@ public class H2Import {
 
         List<String> indices = def.getIndices();
         for (String index : indices) {
-            sql = String.format("CREATE INDEX IF NOT EXISTS %s ON %s(%s)",
+            sql = String.format("CREATE INDEX %s ON %s(%s)",
                     getIndexName(def.getTableName(), index), def.getTableName(), index);
-            stmt.executeUpdate(sql);
+            try {
+                stmt.executeUpdate(sql);
+            } catch (MySQLSyntaxErrorException ignored) {
+                /* ignored */
+            }
         }
         stmt.close();
     }
