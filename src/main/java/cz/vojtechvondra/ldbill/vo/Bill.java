@@ -31,7 +31,7 @@ public class Bill implements Entity {
         try {
             this.introductionDate = sdf.parse(introductionDate);
         } catch (ParseException e) {
-            logger.warn("Could not parse date of introduction: " + introductionDate + " for bill no: " + number);
+            logger.warn(String.format("Could not parse date of introduction: %s for bill no: %s: %s", introductionDate, number, title));
             throw new IllegalArgumentException(e);
         }
 

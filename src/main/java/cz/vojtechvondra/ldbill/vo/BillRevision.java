@@ -37,7 +37,7 @@ public class BillRevision implements Entity {
         try {
             revDate = sdf.parse(date);
         } catch (ParseException e) {
-            logger.warn("Could not parse date of : " + date);
+            logger.warn("Could not parse date [" + date + "] in bill: " + bill.toString() + "/" + revisionNumber);
             revDate = bill.getIntroductionDate();
         }
         this.date = revDate;
@@ -85,6 +85,8 @@ public class BillRevision implements Entity {
             case "6":
                 return BillStage.Passed;
             case "7":
+            case "10":
+            case "20":
                 return BillStage.CommitteeConsideration;
             case "8":
             case "13":
