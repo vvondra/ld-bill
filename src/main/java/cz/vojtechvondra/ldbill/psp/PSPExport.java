@@ -8,7 +8,7 @@ import java.io.*;
  * Files are CSV-like plaintext files encoded in cp1250 and separated with a vertical bar
  * The provided output is a sanitized, decoded and separated list of cell values for each row
  */
-public class PSPExport {
+public class PSPExport implements AutoCloseable {
 
     private PSPDownloader dataDownloader;
     private String name;

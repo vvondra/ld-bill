@@ -15,8 +15,15 @@ import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class Launcher {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+public class Converter {
+
+    private final Configuration config;
+
+    public Converter(Configuration config) {
+        this.config = config;
+    }
+
+    public void convert() throws SQLException, ClassNotFoundException {
         BasicConfigurator.configure();
         Model dataset = ModelFactory.createDefaultModel();
 
@@ -24,15 +31,19 @@ public class Launcher {
         importDeputies(dataset, dataDownloader);
         importBills(dataset, dataDownloader);
         try {
-            dataset.write(new FileOutputStream(new File(System.getProperty("user.home") + "/data.ttl")), "TTL");
+            dataset.write(new FileOutputStream(new File(System.getProperty("user.home") + "/data.ttl")), config.getOutputFormat());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    protected static void importBills(Model dataset, PSPDownloader dataDownloader) throws SQLException, ClassNotFoundException {
-        try (Connection con = ConnectionFactory.create(ConnectionFactory.JdbcDrivers.MySQL)) {
-            JdbcImport.importAll(con, dataDownloader);
+    protected void importBills(Model dataset, PSPDownloader dataDownloader) throws SQLException, ClassNotFoundException {
+        try (Connection con = ConnectionFactory.create(config.getJdbcDriver())) {
+
+            if (config.shouldImportData()) {
+                JdbcImport.importAll(con, dataDownloader);
+            }
+
             BillAdapterStep ba = new BillAdapterStep(con, dataset);
             ba.extendModel();
             VoteStep vs = new VoteStep(con, dataset);
@@ -40,7 +51,7 @@ public class Launcher {
         }
     }
 
-    protected static void importDeputies(Model dataset, PSPDownloader dataDownloader) {
+    protected void importDeputies(Model dataset, PSPDownloader dataDownloader) {
         PartyFileImport oa = new PartyFileImport(new PSPExport(dataDownloader, "organy"), dataset);
         oa.extendModel();
         ParliamentFileImport paa = new ParliamentFileImport(new PSPExport(dataDownloader, "organy"), dataset);
