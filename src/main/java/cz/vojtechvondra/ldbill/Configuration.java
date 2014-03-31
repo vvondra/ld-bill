@@ -42,13 +42,15 @@ public class Configuration {
         }
 
         String driver = cliOptions.getOptionValue("d");
-        switch (driver) {
-            case "h2":
-                c.jdbcDriver = ConnectionFactory.JdbcDrivers.H2;
-                break;
-            case "mysql":
-            default:
-                c.jdbcDriver = ConnectionFactory.JdbcDrivers.MySQL;
+        if (driver != null) {
+            switch (driver) {
+                case "h2":
+                    c.jdbcDriver = ConnectionFactory.JdbcDrivers.H2;
+                    break;
+                case "mysql":
+                default:
+                    c.jdbcDriver = ConnectionFactory.JdbcDrivers.MySQL;
+            }
         }
 
         String format = cliOptions.getOptionValue("f");
