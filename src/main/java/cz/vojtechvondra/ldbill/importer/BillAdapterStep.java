@@ -171,7 +171,7 @@ public class BillAdapterStep extends JdbcImportStep {
     }
 
     private String getBillsSqlSelect() {
-        return "SELECT * FROM tisky WHERE id_druh = 2 OR id_druh = 1 ORDER BY id_tisk DESC"; // TODO 100
+        return "SELECT * FROM tisky WHERE id_druh = 2 OR id_druh = 1 ORDER BY id_tisk DESC";
     }
 
     private String getBillRevisionsSqlSelect() {

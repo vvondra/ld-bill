@@ -80,7 +80,7 @@ public class Converter {
      */
     protected void fileConverterStep() {
         List<ImportStep> steps = new ArrayList<>();
-        
+
         steps.add(new PartyFileImport(createExportForDataset("organy"), dataset));
         steps.add(new ParliamentFileImport(createExportForDataset("organy"), dataset));
         steps.add(new PersonFileImport(createExportForDataset("osoby"), dataset));
