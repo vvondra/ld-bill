@@ -7,7 +7,7 @@ import cz.vojtechvondra.ldbill.vo.Entity;
 
 import java.io.IOException;
 
-abstract class FileImportStep<E extends Entity> implements ImportStep {
+public abstract class FileImportStep<E extends Entity> implements ImportStep {
 
     protected final PSPExport export;
 

@@ -1,16 +1,24 @@
 package cz.vojtechvondra.ldbill;
 
+import cz.vojtechvondra.ldbill.exceptions.ConverterImportException;
+import cz.vojtechvondra.ldbill.exceptions.ConverterOutputException;
 import org.apache.commons.cli.*;
+import org.apache.log4j.BasicConfigurator;
 
 import java.sql.SQLException;
 
 public class Bootstrap {
 
     static public void main(String[] args) {
+        // Log4j setup
+        BasicConfigurator.configure();
+
+        // CLI options setup
         CommandLineParser parser = new GnuParser();
         HelpFormatter formatter = new HelpFormatter();
         Options options = createOptions();
 
+        // Run application
         try {
             CommandLine commandLineOpts = parser.parse(options, args);
             if (commandLineOpts.hasOption("h")) {
@@ -24,13 +32,14 @@ public class Bootstrap {
         } catch (ParseException e) {
             System.err.println("Invalid arguments supplied: " + e.getMessage());
             formatter.printHelp("ldbill", options);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ConverterImportException | ConverterOutputException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Sets up a collection of options
+     */
     static private Options createOptions() {
         Options opts = new Options();
 

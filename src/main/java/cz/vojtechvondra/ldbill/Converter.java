@@ -2,16 +2,15 @@ package cz.vojtechvondra.ldbill;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import cz.vojtechvondra.ldbill.exceptions.ConverterImportException;
+import cz.vojtechvondra.ldbill.exceptions.ConverterOutputException;
 import cz.vojtechvondra.ldbill.importer.*;
 import cz.vojtechvondra.ldbill.psp.ConnectionFactory;
 import cz.vojtechvondra.ldbill.psp.JdbcImport;
 import cz.vojtechvondra.ldbill.psp.PSPDownloader;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
-import org.apache.log4j.BasicConfigurator;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -19,27 +18,50 @@ public class Converter {
 
     private final Configuration config;
 
+    /**
+     * psp.cz archive downloader
+     */
+    private final PSPDownloader dataDownloader;
+
+    /**
+     * The converted RDF dataset being iteratively constructed
+     */
+    private final Model dataset;
+
     public Converter(Configuration config) {
         this.config = config;
+        dataDownloader = new PSPDownloader();
+        dataset = ModelFactory.createDefaultModel();
     }
 
-    public void convert() throws SQLException, ClassNotFoundException {
-        BasicConfigurator.configure();
-        Model dataset = ModelFactory.createDefaultModel();
-
-        PSPDownloader dataDownloader = new PSPDownloader();
-        importDeputies(dataset, dataDownloader);
-        importBills(dataset, dataDownloader);
+    /**
+     * Executes the whole conversion process
+     * @throws ConverterImportException thrown during an error in the data preparation phase
+     * @throws ConverterOutputException throw during an error while outputting the resulting dataset
+     */
+    public void convert() throws ConverterImportException, ConverterOutputException {
         try {
-            dataset.write(new FileOutputStream(new File(System.getProperty("user.home") + "/data.ttl")), config.getOutputFormat());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            fileConverterStep();
+            dbConverterStep();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new ConverterImportException("Could not import PSP dataset", e);
+        }
+
+        try (OutputStream os = new FileOutputStream(config.getOutputFile())) {
+            dataset.write(os, config.getOutputFormat());
+        } catch (IOException e) {
+            throw new ConverterOutputException("Error during writing of output", e);
         }
     }
 
-    protected void importBills(Model dataset, PSPDownloader dataDownloader) throws SQLException, ClassNotFoundException {
+    /**
+     * Executes conversion steps which need a relational databases
+     * Database connection should not leak out of the scope of this method
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    protected void dbConverterStep() throws SQLException, ClassNotFoundException {
         try (Connection con = ConnectionFactory.create(config.getJdbcDriver())) {
-
             if (config.shouldImportData()) {
                 JdbcImport.importAll(con, dataDownloader);
             }
@@ -51,18 +73,30 @@ public class Converter {
         }
     }
 
-    protected void importDeputies(Model dataset, PSPDownloader dataDownloader) {
-        PartyFileImport oa = new PartyFileImport(new PSPExport(dataDownloader, "organy"), dataset);
+    /**
+     * Executes conversion steps which only work with flat files
+     */
+    protected void fileConverterStep() {
+        PartyFileImport oa = new PartyFileImport(createExportForDataset("organy"), dataset);
         oa.extendModel();
-        ParliamentFileImport paa = new ParliamentFileImport(new PSPExport(dataDownloader, "organy"), dataset);
+        ParliamentFileImport paa = new ParliamentFileImport(createExportForDataset("organy"), dataset);
         paa.extendModel();
-        PersonFileImport pa = new PersonFileImport(new PSPExport(dataDownloader, "osoby"), dataset);
+        PersonFileImport pa = new PersonFileImport(createExportForDataset("osoby"), dataset);
         pa.extendModel();
-        DeputyFileImport da = new DeputyFileImport(new PSPExport(dataDownloader, "poslanec"), dataset);
+        DeputyFileImport da = new DeputyFileImport(createExportForDataset("poslanec"), dataset);
         da.extendModel();
-        ParliamentMembershipStep pms = new ParliamentMembershipStep(new PSPExport(dataDownloader, "zarazeni"), dataset);
+        ParliamentMembershipStep pms = new ParliamentMembershipStep(createExportForDataset("zarazeni"), dataset);
         pms.extendModel();
         DeputyFilter df = new DeputyFilter(dataset);
         df.extendModel();
+    }
+
+    /**
+     * Factory method for creating an export service for a given dataset
+     * @param name name of the dataset file
+     * @return
+     */
+    protected PSPExport createExportForDataset(String name) {
+        return new PSPExport(dataDownloader, name);
     }
 }
