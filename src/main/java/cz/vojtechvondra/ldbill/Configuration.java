@@ -71,7 +71,7 @@ public class Configuration {
 
     /**
      * Database driver for importing data
-     * Relevant if {@link #shouldImportData()} is true
+     * Relevant even if {@link #shouldImportData()} is false, to fetch pre-imported data
      */
     public ConnectionFactory.JdbcDrivers getJdbcDriver() {
         return jdbcDriver;

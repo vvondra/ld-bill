@@ -13,6 +13,8 @@ import cz.vojtechvondra.ldbill.psp.PSPExport;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Converter {
 
@@ -77,24 +79,23 @@ public class Converter {
      * Executes conversion steps which only work with flat files
      */
     protected void fileConverterStep() {
-        PartyFileImport oa = new PartyFileImport(createExportForDataset("organy"), dataset);
-        oa.extendModel();
-        ParliamentFileImport paa = new ParliamentFileImport(createExportForDataset("organy"), dataset);
-        paa.extendModel();
-        PersonFileImport pa = new PersonFileImport(createExportForDataset("osoby"), dataset);
-        pa.extendModel();
-        DeputyFileImport da = new DeputyFileImport(createExportForDataset("poslanec"), dataset);
-        da.extendModel();
-        ParliamentMembershipStep pms = new ParliamentMembershipStep(createExportForDataset("zarazeni"), dataset);
-        pms.extendModel();
-        DeputyFilter df = new DeputyFilter(dataset);
-        df.extendModel();
+        List<ImportStep> steps = new ArrayList<>();
+        
+        steps.add(new PartyFileImport(createExportForDataset("organy"), dataset));
+        steps.add(new ParliamentFileImport(createExportForDataset("organy"), dataset));
+        steps.add(new PersonFileImport(createExportForDataset("osoby"), dataset));
+        steps.add(new DeputyFileImport(createExportForDataset("poslanec"), dataset));
+        steps.add(new ParliamentMembershipStep(createExportForDataset("zarazeni"), dataset));
+        steps.add(new DeputyFilter(dataset));
+
+        for (ImportStep step : steps) {
+            step.extendModel();
+        }
     }
 
     /**
      * Factory method for creating an export service for a given dataset
      * @param name name of the dataset file
-     * @return
      */
     protected PSPExport createExportForDataset(String name) {
         return new PSPExport(dataDownloader, name);
