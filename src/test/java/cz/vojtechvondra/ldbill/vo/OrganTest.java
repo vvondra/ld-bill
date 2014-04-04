@@ -11,9 +11,9 @@ public class OrganTest {
                 "151",
                 "0",
                 "6",
-                "KDU|Křesťanská a demokratická unie - Československá strana lidová",
+                "KDU", "Křesťanská a demokratická unie - Československá strana lidová",
                 "Christian Democratic Union - Czechoslovak People's Party",
-                "01.01.1900", "", "", "0"
+                "01.01.1900", "", "", "0", "", ""
         };
         Organ o = new Organ(oDef);
         assertEquals("KDU", o.getShortCode());
