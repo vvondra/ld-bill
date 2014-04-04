@@ -3,16 +3,12 @@ package cz.vojtechvondra.ldbill;
 import cz.vojtechvondra.ldbill.exceptions.ConverterImportException;
 import cz.vojtechvondra.ldbill.exceptions.ConverterOutputException;
 import org.apache.commons.cli.*;
-import org.apache.log4j.BasicConfigurator;
 
 import java.sql.SQLException;
 
 public class Bootstrap {
 
     static public void main(String[] args) {
-        // Log4j setup
-        BasicConfigurator.configure();
-
         // CLI options setup
         CommandLineParser parser = new GnuParser();
         HelpFormatter formatter = new HelpFormatter();

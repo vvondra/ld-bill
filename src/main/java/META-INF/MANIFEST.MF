@@ -4,5 +4,5 @@ Class-Path: jena-core-2.11.0.jar log4j-1.2.16.jar slf4j-log4j12-1.6.4.
  pcore-4.2.2.jar slf4j-api-1.6.4.jar jena-iri-1.0.0.jar jcl-over-slf4j
  -1.6.4.jar httpclient-4.2.3.jar xercesImpl-2.11.0.jar jena-tdb-1.0.0.
  jar
-Main-Class: cz.vojtechvondra.ldbill.Launcher
+Main-Class: cz.vojtechvondra.ldbill.Bootstrap
 

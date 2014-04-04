@@ -48,6 +48,8 @@
     <orderEntry type="library" name="Maven: org.apache.jena:jena-sdb:sources:1.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.jena:jena-sdb:javadoc:1.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.jena:jena-iri:sources:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.29" level="project" />
+    <orderEntry type="library" name="Maven: commons-cli:commons-cli:1.2" level="project" />
   </component>
 </module>
 
