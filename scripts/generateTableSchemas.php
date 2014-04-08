@@ -23,5 +23,6 @@ foreach ($tables as $table => $cols) {
 	}
 	$colDefs = implode(",\n", $colDefs);
 	$file = sprintf($tpl, ucfirst($table), ucfirst($table), $table, $colDefs);
-	file_put_contents("java/" . ucfirst($table) . "TableDefinition.java", $file);
+	file_put_contents(__DIR__ . "/java/" . ucfirst($table) . "TableDefinition.java", $file);
+	echo "Generating class for table $table\n";
 }
