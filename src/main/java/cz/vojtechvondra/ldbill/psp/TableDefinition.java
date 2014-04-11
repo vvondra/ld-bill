@@ -48,25 +48,6 @@ abstract public class TableDefinition {
     }
 
     /**
-     * @return The column definition part of the CREATE TABLE DDL statement
-     */
-    public String getColSqlDefinitions() {
-        StringBuilder colDef = new StringBuilder();
-        for (int i = 0; i < colNames.length; i++) {
-            colDef.append(colNames[i]);
-            if (isNumericCol(colNames[i])) {
-                colDef.append(" INT");
-            } else {
-                colDef.append(" TEXT");
-            }
-            if (i != colNames.length - 1) {
-                colDef.append(",\n");
-            }
-        }
-        return colDef.toString();
-    }
-
-    /**
      * Returns the columns on which an index should be created
      *
      * @return a list of index columns

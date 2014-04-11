@@ -17,6 +17,8 @@ public class ExportDatabaseLoader {
     private final Connection conn;
     private final TableDefinition def;
     private final PSPExport export;
+    private final SQLQueryBuilder queryBuilder;
+
     static Logger logger = Logger.getLogger(ExportDatabaseLoader.class);
 
     /**
@@ -29,6 +31,7 @@ public class ExportDatabaseLoader {
         this.conn = connection;
         this.def = def;
         this.export = export;
+        this.queryBuilder = new SQLQueryBuilder(def);
     }
 
     /**
@@ -57,8 +60,8 @@ public class ExportDatabaseLoader {
         int batchCount = 0;
         String[] data;
         String[] colNames = def.getColNames();
-        String insertSql = prepareInsertSql();
-        PreparedStatement stmt = null;
+        String insertSql = queryBuilder.prepareInsertSql();
+        PreparedStatement stmt;
         try {
             conn.setAutoCommit(false);
             createSchema();
@@ -115,30 +118,6 @@ public class ExportDatabaseLoader {
         }
     }
 
-    /**
-     * Prepare the SQL statement for a single export row
-     * @return SQL INSERT string for prepared statement
-     */
-    private String prepareInsertSql() {
-        String[] colNames = def.getColNames();
-        StringBuilder insertSql = new StringBuilder();
-        insertSql.append("INSERT INTO ").append(def.getTableName()).append("(");
-        for (int i = 0; i < colNames.length; i++) {
-            insertSql.append(colNames[i].toUpperCase());
-            if (i != colNames.length - 1) {
-                insertSql.append(", ");
-            }
-        }
-        insertSql.append(") VALUES (");
-        for (int i = 0; i < colNames.length; i++) {
-            insertSql.append("?");
-            if (i != colNames.length - 1) {
-                insertSql.append(", ");
-            }
-        }
-        insertSql.append(")");
-        return insertSql.toString();
-    }
 
     /**
      * Creates a table in the database for the import
@@ -147,14 +126,12 @@ public class ExportDatabaseLoader {
     private void createSchema() throws SQLException {
         Statement stmt = conn.createStatement();
         logger.debug("Creating table " + def.getTableName());
-        String sql = String.format("CREATE TABLE IF NOT EXISTS %s (%s)",
-                def.getTableName(), def.getColSqlDefinitions());
+        String sql = queryBuilder.prepareCreateTableSql();
         stmt.executeUpdate(sql);
 
         List<String> indices = def.getIndices();
         for (String index : indices) {
-            sql = String.format("CREATE INDEX %s ON %s(%s)",
-                    getIndexName(def.getTableName(), index), def.getTableName(), index);
+            sql = queryBuilder.prepareCreateIndexSql(index);
             try {
                 stmt.executeUpdate(sql);
             } catch (MySQLSyntaxErrorException ignored) {
@@ -164,13 +141,4 @@ public class ExportDatabaseLoader {
         stmt.close();
     }
 
-
-    /**
-     * @param tableName Table name in which to create index
-     * @param colName Column name which is part of the index
-     * @return Generated index name from table and column
-     */
-    private String getIndexName(String tableName, String colName) {
-        return ("IDX" + tableName + colName).toUpperCase();
-    }
 }
