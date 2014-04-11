@@ -2,6 +2,7 @@ package cz.vojtechvondra.ldbill.psp;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,6 +28,8 @@ public class PSPDownloader {
      * URLs of known export files
      */
     private static final EnumMap<ExportFiles, String> exportFiles;
+
+    private static final Logger logger = Logger.getLogger(PSPDownloader.class);
 
     static
     {
@@ -101,7 +104,9 @@ public class PSPDownloader {
         }
         ReadableByteChannel rbc = Channels.newChannel(website.openStream());
         FileOutputStream fos = new FileOutputStream(tmpFile);
+        logger.debug("Downloading archive: " + website);
         fos.getChannel().transferFrom(rbc, 0, 1 << 24); // 16 MB should be a safe limit
+        logger.debug("Finished downloading archive");
         return tmpFile;
     }
 
@@ -115,6 +120,7 @@ public class PSPDownloader {
         File tempDir = new File(System.getProperty("java.io.tmpdir") + "/ldbill");
         if (!tempDir.exists()) {
             if (!tempDir.mkdir()) {
+                logger.error("Could not create archive cache directory: " + tempDir);
                 throw new IOException("Could not create archive cache directory.");
             }
         }
@@ -138,8 +144,10 @@ public class PSPDownloader {
         try {
             zf = new ZipFile(archive);
             tmpFile = getTempDir();
+            logger.debug("Extracting dataset " + setName + " from archive.");
             zf.extractFile(setName + FILE_EXT, tmpFile.getAbsolutePath());
         } catch (ZipException e) {
+            logger.error("Error when extracting dataset archive", e);
             throw new IOException("Could not extract dataset archive");
         }
 

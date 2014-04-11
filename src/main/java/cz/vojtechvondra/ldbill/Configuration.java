@@ -34,7 +34,11 @@ public class Configuration {
 
     }
 
-
+    /**
+     * Create configuration from passed command line options
+     * @param cliOptions arguments specified in CLI
+     * @return Configuration for converter as specified in CLI
+     */
     public static Configuration fromCli(CommandLine cliOptions) {
         Configuration c = new Configuration();
         if (cliOptions.hasOption("i")) {

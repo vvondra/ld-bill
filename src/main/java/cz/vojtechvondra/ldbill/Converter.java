@@ -9,6 +9,7 @@ import cz.vojtechvondra.ldbill.psp.ConnectionFactory;
 import cz.vojtechvondra.ldbill.psp.ExportDatabaseLoader;
 import cz.vojtechvondra.ldbill.psp.PSPDownloader;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.sql.Connection;
@@ -16,8 +17,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Facade for calling the import process and the building of the RDF graph model
+ */
 public class Converter {
 
+    /**
+     * Converter configuration
+     */
     private final Configuration config;
 
     /**
@@ -29,6 +36,8 @@ public class Converter {
      * The converted RDF dataset being iteratively constructed
      */
     private final Model dataset;
+
+    static Logger logger = Logger.getLogger(Converter.class);
 
     public Converter(Configuration config) {
         this.config = config;
@@ -50,8 +59,10 @@ public class Converter {
         }
 
         try (OutputStream os = new FileOutputStream(config.getOutputFile())) {
+            logger.debug("Writing finished model to file: " + config.getOutputFile());
             dataset.write(os, config.getOutputFormat());
         } catch (IOException e) {
+            logger.error("Error during writing of output", e);
             throw new ConverterOutputException("Error during writing of output", e);
         }
     }
@@ -65,9 +76,11 @@ public class Converter {
     protected void dbConverterStep() throws SQLException, ClassNotFoundException {
         try (Connection con = ConnectionFactory.create(config.getJdbcDriver())) {
             if (config.shouldImportData()) {
+                logger.debug("Re-importing all data to database.");
                 ExportDatabaseLoader.importAll(con, dataDownloader);
             }
 
+            logger.debug("Importing database steps");
             BillAdapterStep ba = new BillAdapterStep(con, dataset);
             ba.extendModel();
             VoteStep vs = new VoteStep(con, dataset);
@@ -89,6 +102,7 @@ public class Converter {
         steps.add(new DeputyFilter(dataset));
 
         for (ImportStep step : steps) {
+            logger.debug("Executing import step: " + step.getClass());
             step.extendModel();
         }
     }
