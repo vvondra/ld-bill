@@ -10,31 +10,38 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-
-public class JdbcImport {
+/**
+ * Loads a PSP Export into a database system
+ */
+public class ExportDatabaseLoader {
     private final Connection conn;
     private final TableDefinition def;
     private final PSPExport export;
-    static Logger logger = Logger.getLogger(JdbcImport.class);
+    static Logger logger = Logger.getLogger(ExportDatabaseLoader.class);
 
-    public JdbcImport(Connection connection, TableDefinition def, PSPExport export) {
+    /**
+     *
+     * @param connection JDBC connection to the database
+     * @param def Table DDL provider
+     * @param export data export to be loaded
+     */
+    public ExportDatabaseLoader(Connection connection, TableDefinition def, PSPExport export) {
         this.conn = connection;
         this.def = def;
         this.export = export;
     }
 
     /**
-     * Imports all known datasets to H2
-     *
-     * @param connection JDBC connection to H2
+     * Imports all known datasets to the database
+     * @param connection JDBC connection to the database
      * @param downloader Downloader for PSP archives
      */
     public static void importAll(Connection connection, PSPDownloader downloader) {
-        JdbcImport importer;
+        ExportDatabaseLoader importer;
         for (String set : PSPDownloader.getKnownDatasetNames()) {
             try {
                 logger.debug("Importing dataset to H2: " + set);
-                importer = new JdbcImport(connection, TableDefinition.factory(set), new PSPExport(downloader, set));
+                importer = new ExportDatabaseLoader(connection, TableDefinition.factory(set), new PSPExport(downloader, set));
                 importer.importData();
                 logger.debug("Imported dataset to H2: " + set);
             } catch (ReflectiveOperationException e) {

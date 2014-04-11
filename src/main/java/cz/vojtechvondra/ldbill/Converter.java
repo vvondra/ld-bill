@@ -6,7 +6,7 @@ import cz.vojtechvondra.ldbill.exceptions.ConverterImportException;
 import cz.vojtechvondra.ldbill.exceptions.ConverterOutputException;
 import cz.vojtechvondra.ldbill.importer.*;
 import cz.vojtechvondra.ldbill.psp.ConnectionFactory;
-import cz.vojtechvondra.ldbill.psp.JdbcImport;
+import cz.vojtechvondra.ldbill.psp.ExportDatabaseLoader;
 import cz.vojtechvondra.ldbill.psp.PSPDownloader;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
 
@@ -65,7 +65,7 @@ public class Converter {
     protected void dbConverterStep() throws SQLException, ClassNotFoundException {
         try (Connection con = ConnectionFactory.create(config.getJdbcDriver())) {
             if (config.shouldImportData()) {
-                JdbcImport.importAll(con, dataDownloader);
+                ExportDatabaseLoader.importAll(con, dataDownloader);
             }
 
             BillAdapterStep ba = new BillAdapterStep(con, dataset);
