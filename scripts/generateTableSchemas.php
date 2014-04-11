@@ -2,10 +2,21 @@
 
 $tables = require "tabledefs.php";
 
-define('DESTINATION_DIR', __DIR__ . "/java");
+if ($argc > 1) {
+	if (is_dir($argv[1])) {
+		define('DESTINATION_DIR', $argv[1]);
+	} else {
+		echo "Directory for generating sources does not exist: {$argv[1]}\n";
+		exit(1);
+	}
+} else {
+	define('DESTINATION_DIR', __DIR__ . "/java");
+}
 
 $tpl = <<<JAVA
-package cz.vojtechvondra.ldbill.psp;
+package cz.vojtechvondra.ldbill.psp.tables;
+
+import cz.vojtechvondra.ldbill.psp.TableDefinition;
 
 public class %sTableDefinition extends TableDefinition
 {

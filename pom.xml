@@ -23,6 +23,9 @@
                     <filesets>
                         <fileset>
                             <directory>src/main/java/cz/vojtechvondra/ldbill/psp/tables</directory>
+                            <includes>
+                                <include>**/*.java</include>
+                            </includes>
                         </fileset>
                     </filesets>
                 </configuration>
@@ -43,6 +46,7 @@
                     <executable>php</executable>
                     <arguments>
                         <argument>scripts/generateTableSchemas.php</argument>
+                        <argument>${basedir}/src/main/java/cz/vojtechvondra/ldbill/psp/tables</argument>
                     </arguments>
                 </configuration>
             </plugin>
