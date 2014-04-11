@@ -102,7 +102,7 @@ public class ExportDatabaseLoader {
             stmt.executeBatch();
             conn.commit();
         } catch (SQLException e) {
-            logger.error("SQL error in H2 import.", e);
+            logger.error("SQL error in data import.", e);
         } finally {
             try {
                 stmt.close();
@@ -114,7 +114,7 @@ public class ExportDatabaseLoader {
         try {
             export.close();
         } catch (IOException e) {
-            logger.error("Could not close export file in H2 import.", e);
+            logger.error("Could not close export file in data import.", e);
         }
     }
 
