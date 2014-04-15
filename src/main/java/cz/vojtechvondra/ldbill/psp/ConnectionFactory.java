@@ -1,5 +1,6 @@
 package cz.vojtechvondra.ldbill.psp;
 
+import org.apache.log4j.Logger;
 import org.h2.jdbcx.JdbcDataSource;
 
 import java.sql.Connection;
@@ -7,6 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
+
+    private final static Logger logger = Logger.getLogger(ConnectionFactory.class);
 
     static public Connection create(JdbcDrivers driver) throws SQLException, ClassNotFoundException {
         return ConnectionFactory.create(driver, "", "root", "");
@@ -29,7 +32,9 @@ public class ConnectionFactory {
         }
 
         Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://" + database + "?characterEncoding=utf8", user, password);
+        String dsn = "jdbc:mysql://" + database + "?characterEncoding=utf8";
+        logger.debug("MySQL JDBC DSN: " + dsn);
+        return DriverManager.getConnection(dsn, user, password);
     }
 
     static private Connection createH2Connection(String database, String user, String password) throws ClassNotFoundException, SQLException {

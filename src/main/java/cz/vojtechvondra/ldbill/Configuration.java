@@ -20,7 +20,7 @@ public class Configuration {
 
     private String databaseName = "";
 
-    private String databaseUser = "";
+    private String databaseUser = "root";
 
     private String databasePassword = "";
 
