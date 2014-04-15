@@ -10,6 +10,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Represents a revision of parliamentary press
+ * It is identified by the number of the parliamentary press and a revision number
+ */
 public class BillRevision implements Entity {
 
     private final Bill bill;
@@ -68,6 +72,11 @@ public class BillRevision implements Entity {
         return outcome;
     }
 
+    /**
+     * Maps numeric IDs to RDF properties of bill stages
+     * @param stageId Numeric ID from PSP.cyz
+     * @return RDF property corresponding to the numeric ID
+     */
     private static Property getLegislativeProcessStage(String stageId) {
         switch (stageId) {
             case "0":
