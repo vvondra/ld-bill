@@ -83,6 +83,11 @@ public class Configuration {
             c.databaseName = val;
         }
 
+        val = cliOptions.getOptionValue("o");
+        if (val != null) {
+            c.outputFile = new File(val);
+        }
+
         return c;
     }
 
