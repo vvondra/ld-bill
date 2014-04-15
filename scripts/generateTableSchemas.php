@@ -36,7 +36,7 @@ foreach ($tables as $table => $cols) {
 		$colDefs[] = '            "' . $col . '"';
 	}
 	$colDefs = implode(",\n", $colDefs);
-	$file = sprintf($tpl, ucfirst($table), ucfirst($table), $table, $colDefs);
+	$file = sprintf($tpl, ucfirst($table), ucfirst($table), getTableName($table), $colDefs);
 	
 	if (!is_dir(DESTINATION_DIR)) {
 		mkdir(DESTINATION_DIR, 0777, true);
@@ -44,4 +44,13 @@ foreach ($tables as $table => $cols) {
 
 	file_put_contents(DESTINATION_DIR . "/" . ucfirst($table) . "TableDefinition.java", $file);
 	echo "Generating class for table $table\n";
+}
+
+function getTableName($table) {
+	if (preg_match("/hl[0-9]{4}s/", $table)) {
+		return "hl_hlasovani";
+	} elseif (preg_match("/hl[0-9]{4}h[0-9]?/", $table)) {
+		return "hl_poslanec";
+	}
+	return $table;
 }
