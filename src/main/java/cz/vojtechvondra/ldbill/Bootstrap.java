@@ -41,6 +41,9 @@ public class Bootstrap {
 
         opts.addOption("i", "import", false, "re-import data into relational database");
         opts.addOption("d", "dbms", true, "database management system to use (default mysql, h2)");
+        opts.addOption("u", "dbuser", true, "database user");
+        opts.addOption("p", "dbpass", true, "database password");
+        opts.addOption("n", "dbname", true, "database host/name");
         opts.addOption("o", "output", true, "output file destination");
         opts.addOption("f", "format", true, "output file format (default ttl, rdf)");
         opts.addOption("h", false, "print this help message");

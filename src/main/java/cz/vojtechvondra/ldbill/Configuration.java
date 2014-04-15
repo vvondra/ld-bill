@@ -18,6 +18,12 @@ public class Configuration {
 
     private ConnectionFactory.JdbcDrivers jdbcDriver = ConnectionFactory.JdbcDrivers.MySQL;
 
+    private String databaseName = "";
+
+    private String databaseUser = "";
+
+    private String databasePassword = "";
+
     private String outputFormat = "TTL";
 
     private File outputFile = new File(System.getProperty("user.home") + "/data.ttl");
@@ -57,11 +63,25 @@ public class Configuration {
             }
         }
 
-        String format = cliOptions.getOptionValue("f");
-        if (format != null && allowedFormats.contains(format)) {
-            c.outputFormat = format;
+        String val = cliOptions.getOptionValue("f");
+        if (val != null && allowedFormats.contains(val)) {
+            c.outputFormat = val;
         }
 
+        val = cliOptions.getOptionValue("u");
+        if (val != null) {
+            c.databaseUser = val;
+        }
+
+        val = cliOptions.getOptionValue("p");
+        if (val != null) {
+            c.databasePassword = val;
+        }
+
+        val = cliOptions.getOptionValue("n");
+        if (val != null) {
+            c.databaseName = val;
+        }
 
         return c;
     }
@@ -94,5 +114,28 @@ public class Configuration {
      */
     public File getOutputFile() {
         return outputFile;
+    }
+
+    /**
+     * Database name
+     * For MySQL in {host}/{dbName} format
+     * @return database name
+     */
+    public String getDatabaseName() {
+        return databaseName;
+    }
+
+    /**
+     * @return Database user for connecting to database
+     */
+    public String getDatabaseUser() {
+        return databaseUser;
+    }
+
+    /**
+     * @return Database password for connecting to database
+     */
+    public String getDatabasePassword() {
+        return databasePassword;
     }
 }

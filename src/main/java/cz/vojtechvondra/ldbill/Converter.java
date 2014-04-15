@@ -74,7 +74,12 @@ public class Converter {
      * @throws ClassNotFoundException
      */
     protected void dbConverterStep() throws SQLException, ClassNotFoundException {
-        try (Connection con = ConnectionFactory.create(config.getJdbcDriver())) {
+        try (Connection con = ConnectionFactory.create(
+                config.getJdbcDriver(),
+                config.getDatabaseName(),
+                config.getDatabaseUser(),
+                config.getDatabasePassword()
+        )) {
             if (config.shouldImportData()) {
                 logger.debug("Re-importing all data to database.");
                 ExportDatabaseLoader.importAll(con, dataDownloader);
