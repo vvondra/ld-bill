@@ -104,7 +104,7 @@ public class VoteStep extends JdbcImportStep {
         Vote v = null;
         PreparedStatement stmt;
         try {
-            stmt = connection.prepareStatement(getVoteSelect());
+            stmt = connection.prepareStatement(getVoteSqlSelect());
             stmt.setInt(1, voteDbId);
             stmt.setMaxRows(1);
             ResultSet results = stmt.executeQuery();
@@ -132,16 +132,16 @@ public class VoteStep extends JdbcImportStep {
         return v;
     }
 
-    private String getVoteSelect() {
+    private String getVoteSqlSelect() {
         return "SELECT *\n" +
-                "FROM hl_hlasovani\n" +
+                "FROM HL_HLASOVANI\n" +
                 "WHERE id_hlasovani = ?";
     }
 
     private String getIndividualVotesSqlSelect() {
         return "SELECT *\n" +
-                "FROM hl_poslanec\n" +
-                "JOIN poslanec ON hl_poslanec.id_poslanec = poslanec.id_poslanec\n" +
+                "FROM HL_POSLANEC\n" +
+                "JOIN POSLANEC ON HL_POSLANEC.id_poslanec = POSLANEC.id_poslanec\n" +
                 "WHERE id_hlasovani = ?";
     }
 }

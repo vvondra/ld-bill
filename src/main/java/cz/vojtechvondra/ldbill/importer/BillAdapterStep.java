@@ -171,22 +171,22 @@ public class BillAdapterStep extends JdbcImportStep {
     }
 
     private String getBillsSqlSelect() {
-        return "SELECT * FROM tisky WHERE id_druh = 2 OR id_druh = 1 ORDER BY id_tisk DESC";
+        return "SELECT * FROM TISKY WHERE id_druh = 2 OR id_druh = 1 ORDER BY id_tisk DESC";
     }
 
     private String getBillRevisionsSqlSelect() {
-        return "SELECT hist.*, tisky_za.*, t1.popis, t1.id_typ, typ_akce.popis as akce, cislo as cislo_hlas, hl_hlasovani.datum as datum_hlasovani, vysledek, nazev_kratky, nazev_dlouhy, id_hlas\n" +
-                "FROM hist\n" +
-                "JOIN prechody ON prechody.id_prechod = hist.id_prechod\n" +
-                "LEFT JOIN tisky_za ON tisky_za.id_hist = hist.id_hist\n" +
-                "JOIN stavy AS s1 ON odkud = s1.id_stav\n" +
-                "JOIN stavy AS s2 ON kam = s2.id_stav\n" +
-                "JOIN typ_stavu AS t1 ON s1.id_typ = t1.id_typ\n" +
-                "JOIN typ_stavu AS t2 ON s2.id_typ = t2.id_typ\n" +
-                "JOIN typ_akce ON typ_akce.id_akce = prechody.id_akce\n" +
-                "LEFT JOIN hl_hlasovani ON hist.id_hlas = id_hlasovani\n" +
-                "WHERE hist.id_tisk = ?\n" +
-                "ORDER BY hist.id_hist";
+        return "SELECT HIST.*, TISKY_ZA.*, t1.popis, t1.id_typ, TYP_AKCE.popis as akce, cislo as cislo_hlas, HL_HLASOVANI.datum as datum_hlasovani, vysledek, nazev_kratky, nazev_dlouhy, id_hlas\n" +
+                "FROM HIST\n" +
+                "JOIN PRECHODY ON PRECHODY.id_prechod = HIST.id_prechod\n" +
+                "LEFT JOIN TISKY_ZA ON TISKY_ZA.id_hist = HIST.id_hist\n" +
+                "JOIN STAVY AS s1 ON odkud = s1.id_stav\n" +
+                "JOIN STAVY AS s2 ON kam = s2.id_stav\n" +
+                "JOIN TYP_STAVU AS t1 ON s1.id_typ = t1.id_typ\n" +
+                "JOIN TYP_STAVU AS t2 ON s2.id_typ = t2.id_typ\n" +
+                "JOIN TYP_AKCE ON TYP_AKCE.id_akce = PRECHODY.id_akce\n" +
+                "LEFT JOIN HL_HLASOVANI ON HIST.id_hlas = id_hlasovani\n" +
+                "WHERE HIST.id_tisk = ?\n" +
+                "ORDER BY HIST.id_hist";
     }
 
     /**

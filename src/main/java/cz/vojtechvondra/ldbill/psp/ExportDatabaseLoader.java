@@ -43,10 +43,10 @@ public class ExportDatabaseLoader {
         ExportDatabaseLoader importer;
         for (String set : PSPDownloader.getKnownDatasetNames()) {
             try {
-                logger.debug("Importing dataset to H2: " + set);
+                logger.debug("Importing dataset to DB: " + set);
                 importer = new ExportDatabaseLoader(connection, TableDefinition.factory(set), new PSPExport(downloader, set));
                 importer.importData();
-                logger.debug("Imported dataset to H2: " + set);
+                logger.debug("Imported dataset to DB: " + set);
             } catch (ReflectiveOperationException e) {
                 logger.error("Could not import set " + set, e);
             }
@@ -73,7 +73,7 @@ public class ExportDatabaseLoader {
         try {
             while ((data = export.getLine()) != null) {
                 if (data.length - 1 != colNames.length) {
-                    logger.warn("Column count mismatch in H2 import: " + data.length + " vs. " + colNames.length);
+                    logger.warn("Column count mismatch in DB import: " + data.length + " vs. " + colNames.length);
                     continue;
                 }
                 for (int i = 0; i < colNames.length; i++) {
