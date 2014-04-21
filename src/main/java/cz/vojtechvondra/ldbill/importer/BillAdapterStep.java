@@ -122,7 +122,7 @@ public class BillAdapterStep extends JdbcImportStep {
                 r.addProperty(RDF.type, FRBR.Expression);
                 r.addProperty(DC.title, rev.getTitle());
                 r.addProperty(DC.date, dateFormatter.format(rev.getDate()));
-                r.addProperty(FRBR.realizationOf, rev.getBill().getRdfUri());
+                r.addProperty(FRBR.realizationOf, currentModel.createResource(rev.getBill().getRdfUri()));
                 if (previousRevision != null) {
                     r.addProperty(FRBR.revisionOf, currentModel.createResource(previousRevision.getRdfUri()));
                 }
