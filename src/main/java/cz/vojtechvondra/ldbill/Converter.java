@@ -12,6 +12,7 @@ import cz.vojtechvondra.ldbill.psp.PSPExport;
 import org.apache.log4j.Logger;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class Converter {
      */
     public void convert() throws ConverterImportException, ConverterOutputException {
         try {
+            ontologyConverterStep();
             fileConverterStep();
             dbConverterStep();
         } catch (SQLException | ClassNotFoundException e) {
@@ -90,6 +92,32 @@ public class Converter {
             ba.extendModel();
             VoteStep vs = new VoteStep(con, dataset);
             vs.extendModel();
+        }
+    }
+
+    private void ontologyConverterStep() {
+        List<ImportStep> steps = new ArrayList<>();
+
+        String[] ontologyFiles = new String[] {
+                "/bills.ttl",
+                "/schemes/decisions.ttl",
+                "/schemes/legislative-stages.ttl",
+                "/schemes/sponsors.ttl"
+        };
+
+        for (String ontologyFile : ontologyFiles) {
+            File ontology = null;
+            try {
+                ontology = new File(getClass().getResource(ontologyFile).toURI());
+                steps.add(new RdfImportStep(ontology, dataset));
+            } catch (URISyntaxException e) {
+                logger.error("Could not load ontology file " + ontologyFile + " into model");
+            }
+        }
+
+        for (ImportStep step : steps) {
+            logger.debug("Executing import step: " + step.getClass());
+            step.extendModel();
         }
     }
 

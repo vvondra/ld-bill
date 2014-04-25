@@ -1,8 +1,6 @@
 package cz.vojtechvondra.ldbill.vo;
 
-import com.hp.hpl.jena.rdf.model.Property;
 import cz.vojtechvondra.ldbill.exceptions.UnknownLegislativeStageException;
-import junit.framework.Assert;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
