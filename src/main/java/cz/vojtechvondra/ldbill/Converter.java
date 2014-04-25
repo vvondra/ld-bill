@@ -95,7 +95,7 @@ public class Converter {
         }
     }
 
-    private void ontologyConverterStep() {
+    private void ontologyConverterStep() throws ConverterImportException {
         List<ImportStep> steps = new ArrayList<>();
 
         String[] ontologyFiles = new String[] {
@@ -106,13 +106,9 @@ public class Converter {
         };
 
         for (String ontologyFile : ontologyFiles) {
-            File ontology = null;
-            try {
-                ontology = new File(getClass().getResource(ontologyFile).toURI());
-                steps.add(new RdfImportStep(ontology, dataset));
-            } catch (URISyntaxException e) {
-                logger.error("Could not load ontology file " + ontologyFile + " into model");
-            }
+            InputStream ontology = null;
+            ontology = getClass().getResourceAsStream(ontologyFile);
+            steps.add(new RdfImportStep(ontology, RdfLanguages.TTL, dataset));
         }
 
         for (ImportStep step : steps) {
@@ -124,7 +120,7 @@ public class Converter {
     /**
      * Executes conversion steps which only work with flat files
      */
-    protected void fileConverterStep() {
+    protected void fileConverterStep() throws ConverterImportException {
         List<ImportStep> steps = new ArrayList<>();
 
         steps.add(new PartyFileImport(createExportForDataset("organy"), dataset));

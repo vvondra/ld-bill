@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<rdf:RDF
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:si="http://www.w3schools.com/rdf/">
+    <rdf:Description rdf:about="http://www.vojtechvondra.cz">
+        <si:title>vvondra blog</si:title>
+        <si:author>Vojtěch Vondra</si:author>
+    </rdf:Description>
+</rdf:RDF>
