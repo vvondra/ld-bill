@@ -16,10 +16,10 @@
 
 # --- Own namespaces ------------------------------------------
 
-@prefix lb:          <http://linked.opendata.cz/resource/legislation/bill#> .
-@prefix sponsors:  <http://linked.opendata.cz/resource/legislation/bill-sponsors#> .
-@prefix billstages:  <http://linked.opendata.cz/resource/legislation/bill-legislative-stages#> .
-@prefix decisions:  <http://linked.opendata.cz/resource/legislation/vote-decisions#> .
+@prefix lb:          <http://linked.opendata.cz/ontology/legislation/bill#> .
+@prefix sponsors:  <http://linked.opendata.cz/ontology/legislation/bill-sponsors#> .
+@prefix billstages:  <http://linked.opendata.cz/ontology/legislation/bill-legislative-stages#> .
+@prefix decisions:  <http://linked.opendata.cz/ontology/legislation/vote-decisions#> .
 
 # --- Ontology metadata ---------------------------------------
 
@@ -28,8 +28,8 @@ lb: a owl:Ontology ;
     "Ontologie pro návrhy zákonů"@cs ;
   dcterms:description "Ontologie pro návrhy zákonu zachycující legislativní proces."@cs ;
   dcterms:description "Ontology for bills under consideration of a legislature."@en ;
-  dcterms:modified "2012-12-02"^^xsd:date ;
-  vann:preferredNamespaceUri "http://linked.opendata.cz/resource/legislation/bill#" ;
+  dcterms:modified "2014-05-09"^^xsd:date ;
+  vann:preferredNamespaceUri "http://linked.opendata.cz/ontology/legislation/bill#" ;
   vann:preferredNamespacePrefix "lb" ;
   dcterms:creator <http://www.vojtechvondra.cz> ;
   dcterms:rights <http://creativecommons.org/licenses/by/3.0/cz/> .
@@ -222,7 +222,7 @@ lb:amendedBy a owl:FunctionalProperty ;
 
 ## lb:BillExpression properties
 
-# TODO - do SKOSu
+# TODO - to SKOS if enumerable
 lb:outcome a owl:ObjectProperty ;
   rdfs:label "Výsledek přechodu návrhu zákona do další fáze legislativního procesu"@cs, "The outcome of the current legislative process stage"@en ;
   rdfs:domain frbr:Expression ;
