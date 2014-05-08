@@ -20,6 +20,7 @@ public final class Bill {
 
     public static final Resource Bill = m.createProperty(uri, "Bill");
     public static final Resource VoteInParliament = m.createProperty(uri, "VoteInParliament");
+    public static final Resource PoliticalParty = m.createProperty(uri, "PoliticalParty");
 
     public static final Property billSponsor = m.createProperty(uri, "billSponsor");
     public static final Property legislativeProcessStage = m.createProperty(uri, "legislativeProcessStage");

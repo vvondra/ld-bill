@@ -8,6 +8,7 @@ import com.hp.hpl.jena.vocabulary.DCTerms;
 import com.hp.hpl.jena.vocabulary.RDF;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
 import cz.vojtechvondra.ldbill.vo.Party;
+import cz.vojtechvondra.ldbill.vocabulary.Bill;
 
 public class PartyFileImport extends FileImportStep<Party> {
 
@@ -28,7 +29,7 @@ public class PartyFileImport extends FileImportStep<Party> {
      */
     protected void addEntityToModel(Model organModel, Party o) {
         Resource party = organModel.createResource(o.getRdfUri());
-        party.addProperty(RDF.type, FOAF.Group);
+        party.addProperty(RDF.type, Bill.PoliticalParty);
         party.addProperty(DCTerms.title, o.getFullTitle());
         party.addProperty(DCTerms.identifier, o.getShortCode());
         party.addProperty(FOAF.name, o.getFullTitle());
