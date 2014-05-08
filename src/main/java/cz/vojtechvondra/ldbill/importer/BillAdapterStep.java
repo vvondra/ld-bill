@@ -98,7 +98,6 @@ public class BillAdapterStep extends JdbcImportStep {
                 )
         );
         b.addProperty(DCTerms.description, bill.getDescription());
-        b.addProperty(RDFS.seeAlso, "http://www.psp.cz/sqw/historie.sqw?o=6&t=" + bill.getNumber());
         b.addProperty(Bill.billSponsor, bill.getBillSponsor());
     }
 
