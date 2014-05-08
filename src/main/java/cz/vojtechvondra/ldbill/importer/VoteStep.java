@@ -1,7 +1,8 @@
 package cz.vojtechvondra.ldbill.importer;
 
+import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
 import com.hp.hpl.jena.rdf.model.*;
-import com.hp.hpl.jena.vocabulary.DC;
+import com.hp.hpl.jena.vocabulary.DCTerms;
 import com.hp.hpl.jena.vocabulary.RDF;
 import cz.vojtechvondra.ldbill.vo.Person;
 import cz.vojtechvondra.ldbill.vo.Vote;
@@ -46,9 +47,13 @@ public class VoteStep extends JdbcImportStep {
                 }
                 logger.debug("Adding vote: " + vote.getURI());
                 vote.addProperty(RDF.type, Bill.VoteInParliament);
-                vote.addProperty(DC.date, dateFormatter.format(v.getDate()));
-                vote.addProperty(DC.title, v.getTitle());
-                vote.addProperty(DC.description, v.getDescription());
+                vote.addProperty(DCTerms.date, currentModel.createTypedLiteral(
+                        dateFormatter.format(v.getDate()),
+                        XSDDatatype.XSDdate
+                    )
+                );
+                vote.addProperty(DCTerms.title, v.getTitle());
+                vote.addProperty(DCTerms.description, v.getDescription());
                 vote.addProperty(Bill.supporterCount, Integer.toString(v.getSupportersCount()));
                 vote.addProperty(Bill.opponentCount, Integer.toString(v.getOpponentsCount()));
                 vote.addProperty(Bill.abstainedCount, Integer.toString(v.getAbstaineeCount() + v.getDidNotVoteCount()));

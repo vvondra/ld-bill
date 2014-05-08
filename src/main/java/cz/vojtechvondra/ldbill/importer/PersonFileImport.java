@@ -3,7 +3,7 @@ package cz.vojtechvondra.ldbill.importer;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
-import com.hp.hpl.jena.vocabulary.DC;
+import com.hp.hpl.jena.vocabulary.DCTerms;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.VCARD;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
@@ -28,7 +28,7 @@ public class PersonFileImport extends FileImportStep<Person> {
         Resource person = model.createResource(entity.getRdfUri());
         person.addProperty(RDF.type, FOAF.Person);
         person.addProperty(RDF.type, VCARD.NAME); // TODO check name
-        person.addProperty(DC.title, entity.getFirstName() + " " + entity.getLastName());
+        person.addProperty(DCTerms.title, entity.getFirstName() + " " + entity.getLastName());
         person.addProperty(FOAF.firstName, entity.getFirstName());
         person.addProperty(FOAF.family_name, entity.getLastName()); // TODO change from deprecated
         if (entity.getTitleBeforeName().length() > 0) {

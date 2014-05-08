@@ -1,8 +1,9 @@
 package cz.vojtechvondra.ldbill.importer;
 
+import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.vocabulary.DC;
+import com.hp.hpl.jena.vocabulary.DCTerms;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 import cz.vojtechvondra.ldbill.vo.BillRevision;
@@ -89,10 +90,14 @@ public class BillAdapterStep extends JdbcImportStep {
         logger.debug("Importing bill no. " + bill.getIdent());
         Resource b = currentModel.createResource(bill.getRdfUri());
         b.addProperty(RDF.type, Bill.Bill);
-        b.addProperty(DC.identifier, bill.getIdent());
-        b.addProperty(DC.title, bill.getTitle());
-        b.addProperty(DC.date, dateFormatter.format(bill.getIntroductionDate()));
-        b.addProperty(DC.description, bill.getDescription());
+        b.addProperty(DCTerms.identifier, bill.getIdent());
+        b.addProperty(DCTerms.title, bill.getTitle());
+        b.addProperty(DCTerms.date, currentModel.createTypedLiteral(
+                        dateFormatter.format(bill.getIntroductionDate()),
+                        XSDDatatype.XSDdate
+                )
+        );
+        b.addProperty(DCTerms.description, bill.getDescription());
         b.addProperty(RDFS.seeAlso, "http://www.psp.cz/sqw/historie.sqw?o=6&t=" + bill.getNumber());
         b.addProperty(Bill.billSponsor, bill.getBillSponsor());
     }
@@ -120,8 +125,8 @@ public class BillAdapterStep extends JdbcImportStep {
                         results.getString("akce"));
                 Resource r = currentModel.createResource(rev.getRdfUri());
                 r.addProperty(RDF.type, FRBR.Expression);
-                r.addProperty(DC.title, rev.getTitle());
-                r.addProperty(DC.date, dateFormatter.format(rev.getDate()));
+                r.addProperty(DCTerms.title, rev.getTitle());
+                r.addProperty(DCTerms.date, currentModel.createTypedLiteral(dateFormatter.format(rev.getDate()), XSDDatatype.XSDdate));
                 r.addProperty(FRBR.realizationOf, currentModel.createResource(rev.getBill().getRdfUri()));
                 if (previousRevision != null) {
                     r.addProperty(FRBR.revisionOf, currentModel.createResource(previousRevision.getRdfUri()));
