@@ -47,7 +47,7 @@ public class Bill implements Entity {
 
     @Override
     public String getRdfUri() {
-        return "http://linked.opendata.cz/resource/legislation/cz/bill/" + getIdent();
+        return RESOURCE_URI_PREFIX + "legislation/cz/bill/" + getIdent();
     }
 
     public String getNumber() {

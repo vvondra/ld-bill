@@ -69,6 +69,6 @@ public class Organ implements Entity {
     }
 
     static public String getRdfPrefix() {
-        return "http://linked.opendata.cz/resource/psp.cz/group/";
+        return RESOURCE_URI_PREFIX + "psp.cz/group/";
     }
 }

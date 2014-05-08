@@ -51,7 +51,7 @@ public class Person implements Entity {
 
     @Override
     public String getRdfUri() {
-        return "http://linked.opendata.cz/resource/psp.cz/person/" + getPersonId();
+        return RESOURCE_URI_PREFIX + "psp.cz/person/" + getPersonId();
     }
 
     public String getPersonId() {

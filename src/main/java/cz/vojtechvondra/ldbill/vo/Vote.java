@@ -72,7 +72,7 @@ public class Vote implements Entity {
 
     @Override
     public String getRdfUri() {
-        return "http://linked.opendata.cz/resource/psp.cz/poll/" + voteId;
+        return RESOURCE_URI_PREFIX +"psp.cz/poll/" + voteId;
     }
 
     public String getSessionNumber() {

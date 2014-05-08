@@ -14,6 +14,6 @@ public class Parliament extends Organ {
 
     @Override
     public String getRdfUri() {
-        return "http://linked.opendata.cz/resource/psp.cz/group/" + getOrganId();
+        return RESOURCE_URI_PREFIX + "psp.cz/group/" + getOrganId();
     }
 }

@@ -10,4 +10,9 @@ public class Party extends Organ {
             throw new UnsupportedRowFormatException("Supplied data is not a party.");
         }
     }
+
+    @Override
+    public String getRdfUri() {
+        return getRdfPrefix() + getShortCode();
+    }
 }
