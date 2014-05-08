@@ -34,7 +34,7 @@ public class ParliamentMembershipStep implements ImportStep {
 
         while ((data = export.getLine()) != null) {
             Resource group = currentModel.createResource(Organ.getRdfPrefix() + data[1]);
-            if (group.hasProperty(OWL.sameAs, ParliamentFileImport.PARLIAMENT_AUTHORITY_RDF_URI)) {
+            if (group.hasProperty(OWL.sameAs, currentModel.createResource(ParliamentFileImport.PARLIAMENT_AUTHORITY_RDF_URI))) {
                 if (data[2].equals(MEMBERSHIP_FLAG)) {
                     Person member = new Person(data[0]);
                     currentModel.createResource(member.getRdfUri()).addProperty(FOAF.member, group);
