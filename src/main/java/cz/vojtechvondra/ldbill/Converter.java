@@ -9,6 +9,7 @@ import cz.vojtechvondra.ldbill.psp.ConnectionFactory;
 import cz.vojtechvondra.ldbill.psp.ExportDatabaseLoader;
 import cz.vojtechvondra.ldbill.psp.PSPDownloader;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
+import cz.vojtechvondra.ldbill.vo.Entity;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -44,6 +45,8 @@ public class Converter {
         this.config = config;
         dataDownloader = new PSPDownloader();
         dataset = ModelFactory.createDefaultModel();
+        dataset.setNsPrefix("lbdeputy", "http://linked.opendata.cz/resource/psp.cz/person/");
+        dataset.setNsPrefix("lbpoll", "http://linked.opendata.cz/resource/psp.cz/poll/");
     }
 
     /**
