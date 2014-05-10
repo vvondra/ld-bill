@@ -7,7 +7,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 
 public final class BillSponsors {
 
-    protected static final String uri = "http://linked.opendata.cz/resource/legislation/bill-sponsors#";
+    protected static final String uri = "http://linked.opendata.cz/ontology/legislation/bill-sponsors#";
 
     /**
      * @return the URI for this schema

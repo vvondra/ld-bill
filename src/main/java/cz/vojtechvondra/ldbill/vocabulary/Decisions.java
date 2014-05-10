@@ -7,7 +7,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 
 public final class Decisions {
 
-    protected static final String uri = "http://linked.opendata.cz/resource/legislation/vote-decisions#";
+    protected static final String uri = "http://linked.opendata.cz/ontology/legislation/vote-decisions#";
 
     /**
      * @return the URI for this schema
