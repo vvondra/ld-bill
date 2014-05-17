@@ -8,6 +8,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Represents a vote
+ * without detailed ballot information, only vote counts
+ */
 public class Vote implements Entity {
 
     private String voteId;
@@ -30,6 +34,10 @@ public class Vote implements Entity {
         this(Integer.toString(voteId));
     }
 
+    /**
+     * Default constructor without additional voting data
+     * @param voteId ID of vote in psp.cz db
+     */
     public Vote(String voteId) {
         this.voteId = voteId;
         sessionNumber = "";
@@ -46,6 +54,21 @@ public class Vote implements Entity {
         description = "";
     }
 
+    /**
+     * @param voteId ID of vote in psp.cz db
+     * @param sessionNumber Parliamentary session number {@link cz.vojtechvondra.ldbill.vo.Parliament}
+     * @param voteNumber Ordinal number of vote
+     * @param date Date of vote (dd.MM.yyyy)
+     * @param supportersCount How many people voted for the proposal
+     * @param opponentsCount How many people voted against the proposal
+     * @param abstaineeCount How many people chose not to vote
+     * @param didNotVoteCount How many people chose not to vote or were not present at voting
+     * @param presentCount How many people were present
+     * @param quorum How many votes is necessary to pass the vote
+     * @param result Vote result (Accepted/Refused/Not Valid)
+     * @param title Name of the vote
+     * @param description Description of the issue which the vote decided
+     */
     public Vote(String voteId, String sessionNumber, String voteNumber, String date, int supportersCount, int opponentsCount, int abstaineeCount, int didNotVoteCount, int presentCount, int quorum, String result, String title, String description) {
         this.sessionNumber = sessionNumber;
         this.voteNumber = voteNumber;

@@ -7,6 +7,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Represents any Person managed by this application
+ * Used as a base class for deputies
+ */
 public class Person implements Entity {
 
     protected String personId;

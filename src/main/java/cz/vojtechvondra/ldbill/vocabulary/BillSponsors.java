@@ -5,6 +5,9 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 
+/**
+ * Static properties for the Bill ontology sponsors SKOS schema
+ */
 public final class BillSponsors {
 
     protected static final String uri = "http://linked.opendata.cz/ontology/legislation/bill-sponsors#";

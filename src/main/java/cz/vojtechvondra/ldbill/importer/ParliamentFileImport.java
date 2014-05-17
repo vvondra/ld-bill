@@ -9,8 +9,15 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
 import cz.vojtechvondra.ldbill.vo.Parliament;
 
+/**
+ * Imports individual parliamentary sessions
+ */
 public class ParliamentFileImport extends FileImportStep<Parliament> {
-    // TODO
+
+    /**
+     * URI representing the Czech parliament
+     * From the LEX ontology
+     */
     public static final String PARLIAMENT_AUTHORITY_RDF_URI = "http://linked.opendata.cz/resource/cz/authority/parliament";
 
     public ParliamentFileImport(PSPExport export, Model currentModel) {
@@ -22,6 +29,11 @@ public class ParliamentFileImport extends FileImportStep<Parliament> {
         return new Parliament(line);
     }
 
+    /**
+     * Adds an RDF resource representing the parliamentary session to the model
+     * @param model  RDF model
+     * @param entity Parliamentary session to be added
+     */
     @Override
     protected void addEntityToModel(Model model, Parliament entity) {
         if (entity.getShortCode().matches("PSP[0-9]+")) {

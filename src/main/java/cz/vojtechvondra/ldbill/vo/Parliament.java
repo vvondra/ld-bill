@@ -2,6 +2,10 @@ package cz.vojtechvondra.ldbill.vo;
 
 import cz.vojtechvondra.ldbill.exceptions.UnsupportedRowFormatException;
 
+/**
+ * Represents a Parliamentary session
+ * All sessions have a lifetime between elections
+ */
 public class Parliament extends Organ {
 
     public Parliament(String[] line) {

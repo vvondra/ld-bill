@@ -24,6 +24,14 @@ public class BillRevision implements Entity {
     private final String outcome;
     static Logger logger = Logger.getLogger(BillRevision.class);
 
+    /**
+     * @param bill Bill entity
+     * @param revisionNumber Bill stage revision number
+     * @param description Description of the stage
+     * @param date Date when the bill was moved to this stage (yyyy-MM-dd hh:mm)
+     * @param stage Numeric ID representing process stage
+     * @param outcome Result of voting which took place during this step
+     */
     public BillRevision(Bill bill, int revisionNumber, String description, String date, String stage, String outcome) {
         Date revDate;
         this.bill = bill;

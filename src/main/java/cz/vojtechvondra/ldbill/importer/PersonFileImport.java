@@ -11,7 +11,10 @@ import cz.vojtechvondra.ldbill.vo.Person;
 
 import java.text.SimpleDateFormat;
 
-
+/**
+ * Adds people registered by the Chamber od Deputies to the dataset
+ * At the moment, all of them should be enriched as deputies by the DeputyFileImport step
+ */
 public class PersonFileImport extends FileImportStep<Person> {
 
     public PersonFileImport(PSPExport export, Model currentModel) {
@@ -23,14 +26,19 @@ public class PersonFileImport extends FileImportStep<Person> {
         return new Person(line);
     }
 
+    /**
+     * Adds a person registered by the Chamber od Deputies with personal info to the model
+     * @param model  RDF model
+     * @param entity Person to be added
+     */
     @Override
     protected void addEntityToModel(Model model, Person entity) {
         Resource person = model.createResource(entity.getRdfUri());
         person.addProperty(RDF.type, FOAF.Person);
-        person.addProperty(RDF.type, VCARD.NAME); // TODO check name
+        person.addProperty(RDF.type, VCARD.NAME);
         person.addProperty(DCTerms.title, entity.getFirstName() + " " + entity.getLastName());
         person.addProperty(FOAF.firstName, entity.getFirstName());
-        person.addProperty(FOAF.family_name, entity.getLastName()); // TODO change from deprecated
+        person.addProperty(FOAF.family_name, entity.getLastName());
         if (entity.getTitleBeforeName().length() > 0) {
             person.addProperty(VCARD.Prefix, entity.getTitleBeforeName());
         }

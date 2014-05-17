@@ -10,6 +10,9 @@ import cz.vojtechvondra.ldbill.vo.Person;
 
 import java.io.IOException;
 
+/**
+ * Assigns all parliamentary sessions which a deputy has been part of to their RDF resources
+ */
 public class ParliamentMembershipStep implements ImportStep {
 
     /**
@@ -28,6 +31,10 @@ public class ParliamentMembershipStep implements ImportStep {
         this.currentModel = currentModel;
     }
 
+    /**
+     * Iterates through all membership records and adds equivalent deputy - parliamentary session records
+     * @return Model with seating in parliament added
+     */
     @Override
     public Model extendModel() {
         String[] data;

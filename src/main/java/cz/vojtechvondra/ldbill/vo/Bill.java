@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Represents a bill (proposal of a law)
+ */
 public class Bill implements Entity {
 
     private String year;
@@ -26,6 +29,14 @@ public class Bill implements Entity {
 
     static Logger logger = Logger.getLogger(Bill.class);
 
+    /**
+     * @param number Serial number of the bill in a given year
+     * @param introductionDate Introduction date of the bill in Czech date format
+     * @param title Title of the bill
+     * @param description Description of the bill
+     * @param billSponsor Numeric ID of bill sponsor
+     * @throws IllegalArgumentException
+     */
     public Bill(String number, String introductionDate, String title, String description, String billSponsor) throws IllegalArgumentException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         try {
@@ -66,10 +77,16 @@ public class Bill implements Entity {
         return description;
     }
 
+    /**
+     * @return the year in which the bill was proposed
+     */
     public String getYear() {
         return year;
     }
 
+    /**
+     * @return Unique identifier of the bill
+     */
     public String getIdent() {
         return getYear() + "/" + getNumber();
     }

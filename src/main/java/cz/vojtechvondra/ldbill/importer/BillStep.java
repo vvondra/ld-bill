@@ -5,7 +5,6 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.vocabulary.DCTerms;
 import com.hp.hpl.jena.vocabulary.RDF;
-import com.hp.hpl.jena.vocabulary.RDFS;
 import cz.vojtechvondra.ldbill.vo.BillRevision;
 import cz.vojtechvondra.ldbill.vo.Vote;
 import cz.vojtechvondra.ldbill.vocabulary.Bill;
@@ -18,7 +17,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class BillAdapterStep extends JdbcImportStep {
+/**
+ * This step queries bills from the temporary database and formats them into RDF
+ */
+public class BillStep extends JdbcImportStep {
 
     /**
      * Prefix for RDF Act resources from the lex ontology
@@ -27,12 +29,12 @@ public class BillAdapterStep extends JdbcImportStep {
 
     private final SimpleDateFormat dateFormatter;
 
-    private static Logger logger = Logger.getLogger(BillAdapterStep.class);
+    private static Logger logger = Logger.getLogger(BillStep.class);
 
     /**
      * @inheritDoc
      */
-    public BillAdapterStep(Connection connection, Model currentModel) {
+    public BillStep(Connection connection, Model currentModel) {
         super(connection, currentModel);
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     }

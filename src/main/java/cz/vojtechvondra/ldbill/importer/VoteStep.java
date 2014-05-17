@@ -16,6 +16,9 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+/**
+ * Adds votes and ballots to the model
+ */
 public class VoteStep extends JdbcImportStep {
 
     private static Logger logger = Logger.getLogger(VoteStep.class);

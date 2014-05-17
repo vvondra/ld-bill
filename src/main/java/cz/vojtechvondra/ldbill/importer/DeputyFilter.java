@@ -21,6 +21,10 @@ public class DeputyFilter implements ImportStep {
         this.currentModel = currentModel;
     }
 
+    /**
+     * Requires all deputies to have a member relation (to a political party) and e-mail address
+     * @return model without invalid deputies
+     */
     @Override
     public Model extendModel() {
         StmtIterator stmtIterator = currentModel.listStatements(null, RDF.type, FOAF.Person);

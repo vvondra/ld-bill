@@ -10,6 +10,9 @@ import cz.vojtechvondra.ldbill.psp.PSPExport;
 import cz.vojtechvondra.ldbill.vo.Party;
 import cz.vojtechvondra.ldbill.vocabulary.Bill;
 
+/**
+ * Adds political party resources to the dataset
+ */
 public class PartyFileImport extends FileImportStep<Party> {
 
     public PartyFileImport(PSPExport organExport, Model currentModel) {

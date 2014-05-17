@@ -30,14 +30,26 @@ public class RdfImportStep implements ImportStep, Closeable {
      */
     private Model currentModel;
 
+    /**
+     * Flag watching that the file was imported only once
+     */
     private boolean isFinished = false;
 
+    /**
+     * @param file File to be added to the model
+     * @param format Format of the file
+     * @param currentModel Model to be extended
+     */
     public RdfImportStep(InputStream file, RdfLanguages format, Model currentModel) {
         this.file = file;
         this.format = format;
         this.currentModel = currentModel;
     }
 
+    /**
+     * @param file File to be added to the model, the format is guessed from the extension
+     * @param currentModel Model to be extended
+     */
     public RdfImportStep(File file, Model currentModel) throws ConverterImportException {
         try {
             this.file = new FileInputStream(file);
@@ -48,6 +60,11 @@ public class RdfImportStep implements ImportStep, Closeable {
         this.currentModel = currentModel;
     }
 
+    /**
+     * Adds all triples from the RDF file to the model
+     * @return model with all triples from the file added
+     * @throws ConverterImportException if the file cannot be read or this method is executed for a second time
+     */
     @Override
     public Model extendModel() throws ConverterImportException {
         if (isFinished) {

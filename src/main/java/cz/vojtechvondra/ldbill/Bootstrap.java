@@ -6,6 +6,10 @@ import org.apache.commons.cli.*;
 
 import java.sql.SQLException;
 
+/**
+ * Main application entry point
+ * Puts together configuration options and runs the converter
+ */
 public class Bootstrap {
 
     static public void main(String[] args) {

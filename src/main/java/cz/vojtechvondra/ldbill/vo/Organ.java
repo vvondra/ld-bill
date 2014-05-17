@@ -4,6 +4,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Represents a group or organ in the Chamber of Deputies
+ * Concrete examples are Political parties or Parliamentary sessions
+ * The Parliament itself is a Group
+ */
 public class Organ implements Entity {
 
     public static final Integer ORGAN_PARTY = 6;

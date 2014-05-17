@@ -4,6 +4,9 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 import java.sql.Connection;
 
+/**
+ * Base step implementation for steps using a connection to the temporary database
+ */
 public abstract class JdbcImportStep implements ImportStep {
 
     protected final Connection connection;

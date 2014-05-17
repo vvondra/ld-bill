@@ -7,6 +7,10 @@ import cz.vojtechvondra.ldbill.vo.Entity;
 
 import java.io.IOException;
 
+/**
+ * Abstract import step which goes through a flat file and adds rows to the model
+ * @param <E> Entity type which this step supports
+ */
 public abstract class FileImportStep<E extends Entity> implements ImportStep {
 
     protected final PSPExport export;

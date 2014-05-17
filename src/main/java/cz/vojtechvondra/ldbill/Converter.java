@@ -9,11 +9,9 @@ import cz.vojtechvondra.ldbill.psp.ConnectionFactory;
 import cz.vojtechvondra.ldbill.psp.ExportDatabaseLoader;
 import cz.vojtechvondra.ldbill.psp.PSPDownloader;
 import cz.vojtechvondra.ldbill.psp.PSPExport;
-import cz.vojtechvondra.ldbill.vo.Entity;
 import org.apache.log4j.Logger;
 
 import java.io.*;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -91,7 +89,7 @@ public class Converter {
             }
 
             logger.debug("Importing database steps");
-            BillAdapterStep ba = new BillAdapterStep(con, dataset);
+            BillStep ba = new BillStep(con, dataset);
             ba.extendModel();
             VoteStep vs = new VoteStep(con, dataset);
             vs.extendModel();
