@@ -5,6 +5,8 @@ The converter is a standalone Java application which in one pass collects all th
 
 http://ci.vojtechvondra.cz - Integration server with prepared conversion job
 
+The ontology itself can be found in `src/main/resources`
+
 Running the converter
 ---------------------
 
