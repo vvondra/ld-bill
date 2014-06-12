@@ -172,7 +172,7 @@ public class BillStep extends JdbcImportStep {
         cal.setTime(date);
         int year = cal.get(Calendar.YEAR);
         return currentModel.createResource(
-                String.format("%s%s/%s-%s", LEX_ONTOLOGY_ACT_URI_PREFIX, year, no, year)
+                String.format("%s%s/%s-%s", LEX_ONTOLOGY_ACT_URI_PREFIX, year, no.replaceAll("\\s+", ""), year)
         );
     }
 
